@@ -10,10 +10,9 @@ class Bar extends Component{
         e.preventDefault()
         console.log(this.state.API_KEY_NAME)
         let cityName = e.target["city"].value
-        const res = await fetch(`http://api.openweathermap.org/data/2.5/find?q=${cityName}&units=metric&appid=${this.state.API_KEY_NAME}`)
-        //const res = await fetch(`http://bulk.openweathermap.org/sample/`)
-        const res2 = await res.json()
-        console.log(res2)
+        let res = await fetch(`http://api.openweathermap.org/data/2.5/find?q=${cityName}&units=metric&appid=${this.state.API_KEY_NAME}`)
+        res = await res.json()
+        console.log(res)
     }
 
     render(){
