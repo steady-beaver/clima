@@ -10,7 +10,7 @@ class Bar extends Component{
         e.preventDefault()
         console.log(this.state.API_KEY_NAME)
         let cityName = e.target["city"].value
-        let res = await fetch(`http://api.openweathermap.org/data/2.5/find?q=${cityName}&units=metric&appid=${this.state.API_KEY_NAME}`)
+        let res = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=metric&appid=${this.state.API_KEY_NAME}`)
         res = await res.json()
         console.log(res)
     }
