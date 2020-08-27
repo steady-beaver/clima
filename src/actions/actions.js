@@ -1,7 +1,7 @@
-const getCityForecast = (city) => {
+export const GET_CITY_WEATHER = (weatherObj) => {
     return {
-        type: 'GET_CITY_FORECAST',
-        payload: city
+        type: 'GET_CITY_WEATHER',
+        payload: weatherObj
     }
 }
 
