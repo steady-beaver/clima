@@ -46,16 +46,13 @@ class Bar extends Component{
                     <input type="text" name="city" placeholder="City" />
                     <button type="submit">Get forecast</button>
                 </form>
+                
             </div>
         );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        weatherData: state.weatherReducer
-    }
-}
+
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -64,4 +61,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect (mapStateToProps, mapDispatchToProps) (Bar)
+export default connect (null , mapDispatchToProps) (Bar)
