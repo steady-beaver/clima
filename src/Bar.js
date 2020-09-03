@@ -19,11 +19,13 @@ class Bar extends Component{
             let res = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${this.state.API_KEY_NAME}`)
             res = await res.json()
 
+            console.log(res)
+
             let weatherObj = {
                 city: res.name,
                 weather: {
                     temp: res.main.temp,
-                    sky: res.weather[0].description
+                    sky: res.weather[0].main
                 },
                 forecast: null
             }    
