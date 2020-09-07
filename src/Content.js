@@ -12,9 +12,11 @@ class Content extends Component {
         )
 
         return (
-            <div>
+            <div className='container'>
                 <h4>Your cities</h4>
-                {weatherList}
+                <div className="row">
+                    {weatherList}
+                </div>
             </div>
         )
     }
