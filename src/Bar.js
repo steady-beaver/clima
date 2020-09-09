@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './actions/actions';
 import styles from './Bar.module.css';
+import def_img from './utils/def_image_500x200.jpg';
+
 
 class Bar extends Component {
 
@@ -27,12 +29,14 @@ class Bar extends Component {
     }
 
     unifyImg = (img_url) => {
-        img_url = img_url.replace('&w=400','&w=400&h=200')
+        img_url = img_url.replace('&w=400','&w=500&h=200')
         img_url = img_url.replace('&fit=max','&fit=crop')
         return img_url
     }
 
     handleSubmit = async (e) => {
+
+        const helperEl = document.getElementById('helper-text')
 
         try {
 
@@ -45,26 +49,38 @@ class Bar extends Component {
             let resWeather = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${this.state.WEATHER_API_KEY}`)
             resWeather = await resWeather.json()
             
-            console.log("resWeather")
-            console.log(resWeather)
+            //console.log("resWeather")
+            //console.log(resWeather)
+            if(resWeather.cod != 200) {
+                throw new Error(resWeather.message)
+            }
 
             let resImages = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.state.IMAGES_API_KEY}&page=1&per_page=3&query=${city}`)
             resImages = await resImages.json()
 
-            console.log("resImages")
-            console.log(resImages)
+            let unified_img_url = "";
+            let alt = "";
 
-            const unified_img_url = this.unifyImg(resImages.results[2].urls.small)
 
-            
-            //w=260&h=130
-            //img_url: "https://images.unsplash.com/photo-1589809328135-34ad5225586f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2NDE2M30",
+            if(resImages.total == 0) {
+                unified_img_url = def_img
+                //"https://www.developco.com/wp-content/uploads/2015/08/CCCC-home-2-500x200.jpg"
+                alt = "Unfortunately Unsplash API does not provide images for that town."
+            }else{
+                unified_img_url = this.unifyImg(resImages.results[2].urls.small)
+                alt = resImages.results[2].alt_description
+            }
 
+            //console.log("resImages")
+            //console.log(resImages)
 
 
             let weatherObj = {
                 city: resWeather.name,
-                img_url: unified_img_url,
+                image: {
+                    img_url: unified_img_url,
+                    alt: alt
+                },
                 weather: {
                     temp: resWeather.main.temp,
                     sky: resWeather.weather[0].main
@@ -73,11 +89,13 @@ class Bar extends Component {
             }
 
             this.props.onAddForecast(weatherObj);
+            helperEl.innerHTML = "";
 
         } catch (e) {
-            console.log("HERE")
-            console.error(e);
-            return;
+            
+            helperEl.innerHTML = e.message;
+            
+            console.error(e.name + ' caught!');
         }
 
     }
@@ -90,8 +108,9 @@ class Bar extends Component {
             <div className="container " >
                 <form className = {styles.BarForm} onSubmit={this.handleSubmit}>
                     <div className='row'>
-                        <div className="col s6 offset-s3">
-                            <input style={myStyle} type="text" name="city" placeholder="City" onChange={this.handleCityChange} />
+                        <div className="input-field inline col s6 offset-s3">
+                            <input style={myStyle} type="text" id="city" name="city" placeholder="City" onChange={this.handleCityChange}/>
+                            <span className="helper-text left-align red-text" id="helper-text"></span>
                         </div>
                     </div>
                     <button className="waves-effect waves-light btn teal lighten-2" disabled={true} type="submit">Get forecast</button>
@@ -100,7 +119,6 @@ class Bar extends Component {
         );
     }
 }
-
 
 
 const mapDispatchToProps = dispatch => {

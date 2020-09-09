@@ -20,6 +20,10 @@
  /*
 const initialState = [{
     city: "Shumen",
+    image: {
+        img_url: img_url,
+        alt: alt
+    }
     img_url: "https://images.unsplash.com/photo-1589809328135-34ad5225586f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2NDE2M30",
     weather: {
         temp: 30,

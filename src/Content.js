@@ -8,7 +8,7 @@ class Content extends Component {
 
         let weatherList = (
             this.props.weatherData.map(chunk => {
-                return <CityPanel key={chunk.city} city={chunk.city} sky={chunk.weather.sky} temp={chunk.weather.temp} img_url={chunk.img_url} />
+                return <CityPanel key={chunk.city} city={chunk.city} sky={chunk.weather.sky} temp={chunk.weather.temp} img_url={chunk.image.img_url} img_alt={chunk.image.alt} />
             })
         )
 
