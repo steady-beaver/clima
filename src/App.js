@@ -7,7 +7,7 @@ import Content from './Content';
 function App() {
   return (
     <div className="App" >
-      <h1>El clima / Das wetter</h1>
+      <h1>El clima</h1>
       <Bar />
       <Content />
     </div>

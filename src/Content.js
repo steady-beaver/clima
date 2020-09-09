@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CityPanel from './CityPanel'
+import styles from './Content.module.css'
 
 class Content extends Component {
     render() {
 
         let weatherList = (
             this.props.weatherData.map(chunk => {
-                return <CityPanel key={chunk.city} city={chunk.city} sky={chunk.weather.sky} temp={chunk.weather.temp} />
+                return <CityPanel key={chunk.city} city={chunk.city} sky={chunk.weather.sky} temp={chunk.weather.temp} img_url={chunk.img_url} />
             })
         )
 
         return (
-            <div className='container'>
-                <h4>Your cities</h4>
+            <div className={styles.Content + ' container '}>
                 <div className="row">
                     {weatherList}
                 </div>

@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import styles from './CityPanel.module.css'
 
-const CityPanel = ({ city, sky, temp }) => (
-    <div className="col s12 m6" >
-        <div className="card blue-grey darken-1">
-            <div className="card-content white-text">
-                <span className="card-title">{city} weather</span>
-                <p>Sky above {city} will be {sky} with temperature of {temp}</p>
+const CityPanel = ({ city, sky, temp, img_url }) => (
+    <div className="col s12 m4" >
+        <div className={styles.CityPanel + " card "}>
+            <div className="card-image">
+                <img  src={img_url} />
+                <span className="card-title ">{city}</span>
+                <a className="btn-floating halfway-fab waves-effect waves-light teal lighten-2"><i className="material-icons">add</i></a>
             </div>
-            <div className="card-action">
-                <a href="#">This is a link</a>
+            <div className="card-content ">
+                
+                <p>Sky above {city} will be {sky} with temperature of {temp}</p>
             </div>
         </div>
     </div >

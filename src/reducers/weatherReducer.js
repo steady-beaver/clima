@@ -1,4 +1,4 @@
-const API_KEY_NAME = "ccec765bf7b5d7e644d77172a0eadb7c"
+//https://images.unsplash.com/photo-1524252925966-0c12a9eaeb9c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=260&h=150&fit=max&ixid=eyJhcHBfaWQiOjE2NDE2M30
 
 /**
  * state:
@@ -6,6 +6,7 @@ const API_KEY_NAME = "ccec765bf7b5d7e644d77172a0eadb7c"
  *  [
  *      {
  *          city: "city",
+ *          img_url: "https://images.unsplash.com/photo-1589809328135-34ad5225586f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2NDE2M30",
  *          weather: {
  *              temp: 0,
  *              sky: "clear"    
@@ -16,14 +17,19 @@ const API_KEY_NAME = "ccec765bf7b5d7e644d77172a0eadb7c"
  * 
  */
 
+ /*
 const initialState = [{
     city: "Shumen",
+    img_url: "https://images.unsplash.com/photo-1589809328135-34ad5225586f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2NDE2M30",
     weather: {
         temp: 30,
         sky: "rain"
     },
     forecast: null
 }];
+*/
+
+const initialState = []
 
 const weatherReducer = (state = initialState, action) => {
     
@@ -32,7 +38,7 @@ const weatherReducer = (state = initialState, action) => {
         case 'GET_CITY_WEATHER': {
         
             let weatherObj = action.payload
-            console.log(weatherObj)
+            //console.log(weatherObj)
             return [...state, weatherObj]
         }
 
