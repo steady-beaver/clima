@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './CityPanel.module.css';
+import MyLineChart from './MyLineChart/MyLineChart';
 
 class CityPanel extends Component {
 
@@ -18,11 +19,11 @@ class CityPanel extends Component {
     //{ city, sky, temp, img_url, img_alt } = this.props
 
     handleForecast = async () => {
-        //console.log(`api.openweathermap.org/data/2.5/forecast?q=${this.props.city}&appid=${this.WEATHER_API_KEY}`)
-        let resForecast = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${this.props.city}&appid=${this.WEATHER_API_KEY}&units=metric`)
-        resForecast = await resForecast.json()
-        console.log(resForecast)
+       console.log("Reach M module")
     }
+
+
+
 
     render() {
         return (
@@ -49,6 +50,7 @@ class CityPanel extends Component {
                         <h4>{this.props.city}</h4>
                         <p>Be strong </p>
                         <p>{this.props.tempHourArr.length}</p>
+                        <MyLineChart />
                     </div>
                     <div className="modal-footer">
                         <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
