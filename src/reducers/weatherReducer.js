@@ -16,7 +16,7 @@ const initialState = [{
        temp: 30,
        sky: "rain"
    },
-   daily:{
+   daily: {
         tempHourArr: [{ 
             dt: formattedDate,
             temp: tempC

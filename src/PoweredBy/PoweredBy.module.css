@@ -1,0 +1,36 @@
+
+.technologyBox div{
+    
+}
+
+
+/* ROW */
+.technologyBox > div{
+    
+    padding: 5% 0;
+   
+}
+
+
+/* Valign-wrapper */
+.technologyBox > div > div{
+    
+}
+
+/* Col-wrapper */
+.technologyBox > div > div > div{
+   
+}
+
+
+/* img */
+.technologyBox  img{
+    max-width:350px;
+    max-height: 500px;
+    width: 100%;
+}
+
+.technologyBox #lastRow {   
+    width: 75%;
+    margin: 0 auto;
+  }

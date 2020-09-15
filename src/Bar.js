@@ -83,16 +83,16 @@ class Bar extends Component {
             for (let i in resWeather.hourly){
                 let formattedDate = this.fromUnixToStr(resWeather.hourly[i].dt)
                 dayTempArr.push({
-                    dt: formattedDate,
-                    temp: resWeather.hourly[i].temp
+                    x: formattedDate,
+                    y: resWeather.hourly[i].temp
                 })
                 if (formattedDate === "0:00:00") break;
             }
 
             
 
-            //console.log("HERE: ")
-            //console.log(dayTempArr)
+            console.log("dayTempArr: ")
+            console.log(dayTempArr)
 
 
             let resImages = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.state.IMAGES_API_KEY}&page=1&per_page=3&query=${city}`)
@@ -155,7 +155,7 @@ class Bar extends Component {
         const myStyle = { margin: '20px 0 0 0' }
 
         return (
-            <div className="container " >
+            <div>
                 <form className={styles.BarForm} onSubmit={this.handleSubmit}>
                     <div className='row'>
                         <div className="input-field inline col s6 offset-s3">

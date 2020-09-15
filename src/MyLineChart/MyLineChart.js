@@ -1,14 +1,36 @@
 import { ResponsiveLine } from '@nivo/line'
 import React, { Component } from 'react'
-import { data } from './data'
+import { connect } from 'react-redux'
 import styles from './MyLineChart.module.css'
 
+
+
+
+
 class MyLineChart extends Component {
+
+    extractDataFromStore = (city) => {
+        const WD = this.props.weatherData
+        for(let i in WD){
+            if(WD[i].place.city === city) return WD[i].daily.tempHourArr
+        }
+        throw new Error("extractDataFromStore could not find relative data!")
+    }
+
+    data = [
+        {
+            "id": this.props.city,
+            "color": "hsl(342, 70%, 50%)",
+            "data": this.extractDataFromStore(this.props.city)
+        }
+    ]
+
+
     render() {
         return (
             <div className={styles.MyLineChart}>
                 <ResponsiveLine
-                    data={data}
+                    data={this.data}
                     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
                     xScale={{ type: 'point' }}
                     yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
@@ -72,4 +94,10 @@ class MyLineChart extends Component {
     }
 }
 
-export default MyLineChart
+const mapStateToProps = state =>{
+    return{
+        weatherData: state.weatherReducer
+    }
+}
+
+export default connect (mapStateToProps) (MyLineChart)

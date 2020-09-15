@@ -1,4 +1,5 @@
-.CityPanel img{
-    mas-width: 250px;
-    max-height: 170px;
-}
+.myModal { 
+    width: 75% !important ; 
+    max-height: 100% !important ; 
+    overflow-y: hidden !important ;
+} 

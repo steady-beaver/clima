@@ -27,13 +27,13 @@ class CityPanel extends Component {
 
     render() {
         return (
-            <div>
+            <div className={styles.modal}>
                 <div className="col s12 m4" >
-                    <div className={styles.CityPanel + " card "}>
+                    <div className="card">
                         <div className="card-image">
                             <img src={this.props.img_url} alt={this.props.img_alt} />
                             <span className="card-title ">{this.props.city}</span>
-                            <a onClick={this.handleForecast} className="btn-floating  halfway-fab waves-effect waves-light teal lighten-2 modal-trigger" href={"#" + this.props.city + "modal"} ><i className="material-icons">add</i></a>
+                            <a onClick={this.handleForecast} className="btn-floating  halfway-fab waves-effect waves-light teal lighten-2 modal-trigger" href={"#" + this.props.city + "Modal"} ><i className="material-icons">add</i></a>
 
                         </div>
 
@@ -45,12 +45,12 @@ class CityPanel extends Component {
 
 
                 
-                <div id={this.props.city + "modal"} className="modal">
+                <div id={this.props.city + "Modal"} className={"modal " + styles.myModal}>
                     <div className="modal-content">
                         <h4>{this.props.city}</h4>
                         <p>Be strong </p>
                         <p>{this.props.tempHourArr.length}</p>
-                        <MyLineChart />
+                        <MyLineChart city={this.props.city} />
                     </div>
                     <div className="modal-footer">
                         <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
