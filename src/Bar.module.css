@@ -1,3 +1,18 @@
-.BarForm>input{
-    background: greenyellow;
+.Bar{
+    margin-bottom: 30px;
+}
+
+
+.Bar .Form{
+    margin: 0 auto;
+    width: 60%;
+}
+
+.Bar input{
+    text-transform: capitalize;
+}
+
+.Bar button{
+    display: block;
+    margin: 0 auto;
 }

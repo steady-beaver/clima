@@ -47,6 +47,7 @@ class Bar extends Component {
 
             e.preventDefault();
             let city = e.target["city"].value;
+            city = city[0].toUpperCase() + city.substring(1)
             e.target["city"].value = ""
             e.target.children[1].disabled = true
 
@@ -80,7 +81,7 @@ class Bar extends Component {
 
             let dayTempArr = [];
 
-            for (let i in resWeather.hourly){
+            for (let i in resWeather.hourly) {
                 let formattedDate = this.fromUnixToStr(resWeather.hourly[i].dt)
                 dayTempArr.push({
                     x: formattedDate,
@@ -89,7 +90,7 @@ class Bar extends Component {
                 if (formattedDate === "0:00:00") break;
             }
 
-            
+
 
             console.log("dayTempArr: ")
             console.log(dayTempArr)
@@ -132,7 +133,7 @@ class Bar extends Component {
                     temp: resWeather.current.temp,
                     sky: resWeather.current.weather[0].main
                 },
-                daily:{
+                daily: {
                     tempHourArr: dayTempArr
                 },
                 forecast: null
@@ -155,14 +156,10 @@ class Bar extends Component {
         const myStyle = { margin: '20px 0 0 0' }
 
         return (
-            <div>
-                <form className={styles.BarForm} onSubmit={this.handleSubmit}>
-                    <div className='row'>
-                        <div className="input-field inline col s6 offset-s3">
-                            <input style={myStyle} type="text" id="city" name="city" placeholder="City" onChange={this.handleCityChange} />
-                            <span className="helper-text left-align red-text" id="helper-text"></span>
-                        </div>
-                    </div>
+        <div className={styles.Bar}>
+                <form className={styles.Form} onSubmit={this.handleSubmit}>
+                    <input type="text" spellCheck="false" id="city" name="city" placeholder="City" onChange={this.handleCityChange} />
+                    <span className="helper-text left-align red-text" id="helper-text"></span>
                     <button className="waves-effect waves-light btn teal lighten-2" disabled={true} type="submit">Get forecast</button>
                 </form>
             </div>
