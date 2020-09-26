@@ -1,4 +1,4 @@
-.MyLineChart {
+.LineChart {
     height:50vh;
     background: white;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -6,6 +6,6 @@
       
    }
    
-.MyLineChart:hover {
+.LineChart:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }

@@ -16,3 +16,16 @@
     display: block;
     margin: 0 auto;
 }
+
+.Sun{
+    position: absolute;
+    top: -12rem;
+    left: -12rem;
+    
+
+}
+
+.Sun img{
+    width: 30rem;
+    height: 30rem;
+}

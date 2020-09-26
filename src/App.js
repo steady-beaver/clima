@@ -11,7 +11,6 @@ import PoweredBy from './PoweredBy/PoweredBy';
 function App() {
   return (
     <div className="App container" >
-      <h1>Clima</h1>
       <Bar />
       <Content />
       <ParallaxEffect />
