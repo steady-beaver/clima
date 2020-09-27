@@ -8,24 +8,22 @@
     width: 60%;
 }
 
-.Bar input{
+.Bar .Form input{
     text-transform: capitalize;
 }
 
-.Bar button{
+.Bar .Form button{
     display: block;
     margin: 0 auto;
 }
 
-.Sun{
+.Bar .Sun{
     position: absolute;
     top: -12rem;
     left: -12rem;
-    
-
 }
 
-.Sun img{
+.Bar .Sun img{
     width: 30rem;
     height: 30rem;
 }

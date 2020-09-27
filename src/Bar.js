@@ -17,6 +17,8 @@ class Bar extends Component {
     sunElement = null;
     rotationTween = null;
 
+    helperEl = null;
+
 
     handleCityChange = (e) => {
         const elementSubmitButton = document.querySelector('form button')
@@ -44,23 +46,40 @@ class Bar extends Component {
     }
 
     formatData = (arr) => {
-        for(let i in arr){
-            arr[i].x = arr[i].x.substring(0,2)
+        for (let i in arr) {
+            arr[i].x = arr[i].x.substring(0, 2)
             //arr[i].y = Math.round(arr[i].y)
         }
     }
 
-    handleSubmit = async (e) => {
+    validation = (city) => {
 
-        const helperEl = document.getElementById('helper-text')
+        // console.log(`Here is ${city}`)
+
+        const WD = this.props.weatherData
+        if (WD.length > 0) {
+            WD.forEach(
+                entry => {
+                    console.log(entry.place.city === city)
+                    if (entry.place.city === city) {
+                        this.helperEl.innerHTML = "You already have data for that city."
+                        throw new Error("You already have data for that city! (Client input error)")
+                    }
+                }
+            )
+        }
+
+    }
+
+    handleSubmit = async (e) => {
 
         try {
 
-            console.log(this.sunElement)
-
             e.preventDefault();
-            let city = e.target["city"].value;
+            let city = e.target["city"].value.trim();
             city = city[0].toUpperCase() + city.substring(1)
+            this.validation(city)
+
             e.target["city"].value = ""
             e.target.children[1].disabled = true
 
@@ -90,8 +109,6 @@ class Bar extends Component {
 
             resWeather = await resWeather.json()
 
-            console.log(resWeather)
-          
 
             let dayTempArr = [];
 
@@ -151,36 +168,38 @@ class Bar extends Component {
             }
 
             this.props.onAddForecast(weatherObj);
-            helperEl.innerHTML = "";
+            console.log( this.helperEl)
+            this.helperEl.innerHTML = "";
             this.rotationTween.restart();
 
         } catch (e) {
-
-            helperEl.innerHTML = e.message;
-
-            console.error(e.name + ' caught!');
+            
+            this.helperEl.innerHTML = e.message;
+            
+            console.error(e.name + ' caught! \n' + e);
         }
 
     }
 
     componentDidMount() {
-        this.rotationTween = gsap.to(this.sunElement,{ duration: 1.5, rotation: 360})
+        this.helperEl = document.getElementById("helper-text");
+        this.rotationTween = gsap.to(this.sunElement, { duration: 1.5, rotation: 360 });
     }
-    
+
 
     render() {
 
-        const myStyle = { margin: '20px 0 0 0' }
+        // const myStyle = { margin: '20px 0 0 0' }
 
         return (
-        <div className={styles.Bar}>
+            <div className={styles.Bar}>
                 <h1>Clima</h1>
                 <div className={styles.Sun} ref={div => this.sunElement = div} >
                     <img src="imgs/sun/stylized-sun-bg.png" alt="sun" />
                 </div>
                 <form className={styles.Form} onSubmit={this.handleSubmit}>
                     <input type="text" spellCheck="false" id="city" name="city" placeholder="City" onChange={this.handleCityChange} />
-                    <span className="helper-text left-align red-text" id="helper-text"></span>
+                    <span className="helper-text left-align red-text" id="helper-text" ></span>
                     <button className="waves-effect waves-light btn teal lighten-2" disabled={true} type="submit">Get forecast</button>
                 </form>
             </div>
@@ -188,6 +207,11 @@ class Bar extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        weatherData: state.weatherReducer
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -197,4 +221,4 @@ const mapDispatchToProps = dispatch => {
 
 
 
-export default connect(null, mapDispatchToProps)(Bar)
+export default connect(mapStateToProps, mapDispatchToProps)(Bar)
