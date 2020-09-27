@@ -41,7 +41,12 @@ export class PoweredBy extends Component {
                 alt: "Nivo visual library official website",
                 src: "imgs/PoweredBy/nivo-logo.png",
                 href: "https://nivo.rocks/",
-            }
+            },
+            {
+                alt: "Green Sock GSAP animation library official website",
+                src: "imgs/PoweredBy/gsap-logo.png",
+                href: "https://greensock.com/gsap/"
+            },
         ]
     }   
 

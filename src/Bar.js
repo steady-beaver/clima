@@ -140,12 +140,6 @@ class Bar extends Component {
                 alt = resImages.results[2].alt_description
             }
 
-            //console.log("resImages")
-            //console.log(resImages)
-
-
-
-
 
             let weatherObj = {
                 place: {
@@ -188,8 +182,6 @@ class Bar extends Component {
 
 
     render() {
-
-        // const myStyle = { margin: '20px 0 0 0' }
 
         return (
             <div className={styles.Bar}>
