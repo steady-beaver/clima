@@ -13,7 +13,17 @@ class Content extends Component {
         }else{
             weatherList = (
                 this.props.weatherData.map(chunk => {
-                    return <CityPanel key={chunk.place.city} city={chunk.place.city} sky={chunk.current.sky} temp={chunk.current.temp} img_url={chunk.image.img_url} img_alt={chunk.image.alt}    tempHourArr={chunk.daily.tempHourArr}           />
+                    return <CityPanel 
+                        key={chunk.place.city} 
+                        city={chunk.place.city} 
+                        sky={chunk.current.sky}
+                        skyID={chunk.current.skyID} 
+                        desc={chunk.current.desc} 
+                        dayLight={chunk.current.dayLight} 
+                        temp={chunk.current.temp} 
+                        img_url={chunk.image.img_url} 
+                        img_alt={chunk.image.alt}    
+                        tempHourArr={chunk.daily.tempHourArr}           />
                 })
             )
         }

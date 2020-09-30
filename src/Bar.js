@@ -71,6 +71,20 @@ class Bar extends Component {
 
     }
 
+    isDayLight = (currentDayData) => {
+        // const currentTime = 1601377777;   //TEST
+
+        const currentTime = currentDayData.dt;
+        const sunrise = currentDayData.sunrise;
+        const sunset = currentDayData.sunset;
+
+        console.log(`${sunrise} ${sunset} ${currentTime}`)
+        console.log(`${this.fromUnixToStr(sunrise)} ${this.fromUnixToStr(sunset)} ${this.fromUnixToStr(currentTime)}`)
+        if (sunrise < currentTime && currentTime < sunset) return true;
+        else return false;
+
+    }
+
     handleSubmit = async (e) => {
 
         try {
@@ -111,6 +125,8 @@ class Bar extends Component {
 
 
             let dayTempArr = [];
+
+            console.log(resWeather)
 
             for (let i in resWeather.hourly) {
                 let date = this.fromUnixToStr(resWeather.hourly[i].dt)
@@ -153,7 +169,10 @@ class Bar extends Component {
                 },
                 current: {
                     temp: resWeather.current.temp,
-                    sky: resWeather.current.weather[0].main
+                    sky: resWeather.current.weather[0].main,
+                    skyID: resWeather.current.weather[0].id,
+                    desc: resWeather.current.weather[0].description,
+                    dayLight: this.isDayLight(resWeather.current)
                 },
                 daily: {
                     tempHourArr: dayTempArr
@@ -162,14 +181,14 @@ class Bar extends Component {
             }
 
             this.props.onAddForecast(weatherObj);
-            console.log( this.helperEl)
+            console.log(this.helperEl)
             this.helperEl.innerHTML = "";
             this.rotationTween.restart();
 
         } catch (e) {
-            
+
             this.helperEl.innerHTML = e.message;
-            
+
             console.error(e.name + ' caught! \n' + e);
         }
 

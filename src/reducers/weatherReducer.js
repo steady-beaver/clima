@@ -14,7 +14,10 @@ const initialState = [{
    },
    current: {
        temp: 30,
-       sky: "rain"
+       sky: "rain",
+       skyID: XXX,
+       desc: "clear sky",
+       day: true,
    },
    daily: {
         tempHourArr: [{ 
