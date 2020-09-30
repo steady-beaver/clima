@@ -1,6 +1,7 @@
 
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import AvgTempBarChart from './BarChart/AvgTempBarChart';
 import styles from './CityPanel.module.css';
 import LineChart from './LineChart/LineChart';
 
@@ -12,8 +13,11 @@ class CityPanel extends Component {
 
     canvasRef = React.createRef();
 
+    capitalizeFirst = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+
     drawCurrentWeather = () => {
-        
         
         const pickProperSVG = (sky, skyID, dayLight) => {
             switch(sky) {
@@ -77,9 +81,9 @@ class CityPanel extends Component {
                         <div className="card-content ">
                             {/* <p>Sky above {this.props.city} will be {this.props.sky} with temperature of {Math.round(this.props.temp)}&#x2103;</p> */}
                             <canvas ref={this.canvasRef} width="128" height="128" />
-                            <div>{this.props.sky}</div>
-                            <div>{this.props.temp}</div>
-                            <div>{this.props.desc}</div>
+                            
+                            <div>{Math.round(this.props.temp)}</div>
+                            <div>{this.capitalizeFirst(this.props.desc)}</div>
                         </div>
                     </div>
                 </div >
@@ -90,6 +94,7 @@ class CityPanel extends Component {
                     <div className="modal-content">
                         <h4>{this.props.city}</h4>
                         <LineChart city={this.props.city} />
+                        <AvgTempBarChart city={this.props.city}/>
                     </div>
                     <div className="modal-footer">
                         <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>

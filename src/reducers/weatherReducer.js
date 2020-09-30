@@ -25,7 +25,13 @@ const initialState = [{
             temp: tempC
         }]
     },
-   forecast: null
+   forecast: [
+                {
+                    "date": "formatted date 1",
+                    "average temperature": 32
+                }, 
+                {}
+            ]
 }];
 */
 
@@ -38,7 +44,6 @@ const weatherReducer = (state = initialState, action) => {
         case 'GET_CITY_WEATHER': {
 
             let weatherObj = action.payload
-            //console.log(weatherObj)
             return [...state, weatherObj]
         }
 

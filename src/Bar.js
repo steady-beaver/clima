@@ -48,7 +48,6 @@ class Bar extends Component {
     formatData = (arr) => {
         for (let i in arr) {
             arr[i].x = arr[i].x.substring(0, 2)
-            //arr[i].y = Math.round(arr[i].y)
         }
     }
 
@@ -71,6 +70,22 @@ class Bar extends Component {
 
     }
 
+    getDateFromUNIX = (unix) => {
+        const milliseconds = unix * 1000;
+
+        const dateObject = new Date(milliseconds);
+
+        const humanDateTimeFormat = dateObject.toLocaleString('en-GB'); //2019-12-9 10:30:15
+
+        const humanDateTimeFormatSplittedArray = humanDateTimeFormat.split(',');
+
+        const humanDateFormat = humanDateTimeFormatSplittedArray[0];
+
+        return humanDateFormat.replace(/\//g, "-");
+        
+        ;
+    }
+
     isDayLight = (currentDayData) => {
         // const currentTime = 1601377777;   //TEST
 
@@ -83,6 +98,29 @@ class Bar extends Component {
         if (sunrise < currentTime && currentTime < sunset) return true;
         else return false;
 
+    }
+
+    // data = [
+    //     {
+    //         "date": "formatted date 1",
+    //         "average temperature": 32
+    //     },
+    // ]
+
+    refine(daysArr) {
+
+        const calculateAvgTemp = (dayTempData) => {
+            const avgTemp = Math.round((dayTempData.morn + dayTempData.day + dayTempData.eve + dayTempData.night) / 4);
+            return avgTemp;
+        }
+
+
+        return daysArr.map(dayData => {
+            return {
+                "date": this.getDateFromUNIX(dayData.dt),
+                "average temperature": calculateAvgTemp(dayData.temp)
+            }
+        })
     }
 
     handleSubmit = async (e) => {
@@ -177,7 +215,7 @@ class Bar extends Component {
                 daily: {
                     tempHourArr: dayTempArr
                 },
-                forecast: null
+                forecast: this.refine(resWeather.daily)
             }
 
             this.props.onAddForecast(weatherObj);

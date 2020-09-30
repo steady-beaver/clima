@@ -8,8 +8,6 @@ import styles from './LineChart.module.css'
 
 class LineChart extends Component {
 
-
-
     extractDataFromStore = (city) => {
         const WD = this.props.weatherData
         for (let i in WD) {
@@ -17,25 +15,25 @@ class LineChart extends Component {
         }
 
         throw new Error("extractDataFromStore could not find relative data!")
-        
+
     }
 
-data = [
-    {
-        "id": this.props.city,
-        "color": "hsl(342, 70%, 50%)",
-        "data": this.extractDataFromStore(this.props.city)
+    data = [
+        {
+            "id": this.props.city,
+            "color": "hsl(342, 70%, 50%)",
+            "data": this.extractDataFromStore(this.props.city)
+        }
+    ]
+
+
+    render() {
+        return (
+            <div className={styles.LineChart}>
+                <CustomChart data={this.data} />
+            </div>
+        )
     }
-]
-
-
-render() {
-    return (
-        <div className={styles.LineChart}>
-            <CustomChart data={this.data} />
-        </div>
-    )
-}
 }
 
 const mapStateToProps = state => {
