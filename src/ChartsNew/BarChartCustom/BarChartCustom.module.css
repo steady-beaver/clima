@@ -1,0 +1,7 @@
+.BarChartContainer{
+    width: 90%;
+    height: 40%;
+    min-width: 350px;
+    min-height: 250px;
+    margin: 0 auto;
+}

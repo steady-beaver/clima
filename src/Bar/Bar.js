@@ -1,9 +1,9 @@
 import { gsap } from 'gsap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from './actions/actions';
+import * as actions from '../actions/actions';
+import def_img from '../utils/def_image_500x200.jpg';
 import styles from './Bar.module.css';
-import def_img from './utils/def_image_500x200.jpg';
 
 
 class Bar extends Component {
@@ -112,7 +112,7 @@ class Bar extends Component {
         let data = daysArr.map(dayData => {
             return {
                 "date": this.getDateFromUNIX(dayData.dt),
-                "average temperature": calculateAvgTemp(dayData.temp)
+                "Average temperature": calculateAvgTemp(dayData.temp)
             }
         })
 

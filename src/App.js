@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Bar from './Bar';
-import Content from './Content';
+import Bar from './Bar/Bar';
+import Content from './Content/Content';
 import ParallaxEffect from './ParallaxEffect/ParallaxEffect';
 import PoweredBy from './PoweredBy/PoweredBy';
 

@@ -1,7 +1,8 @@
 import M from "materialize-css/dist/js/materialize.min.js";
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import LineChartCustom from './ChartsNew/LineChartCustom/LineChartCustom';
+import BarChartCustom from '../ChartsNew/BarChartCustom/BarChartCustom';
+import LineChartCustom from '../ChartsNew/LineChartCustom/LineChartCustom';
 // import AvgTempBarChart from './ChartsNivo/BarChart/AvgTempBarChart';
 // import LineChart from './ChartsNivo/LineChart2/LineChart';
 import styles from './CityPanel.module.css';
@@ -98,8 +99,10 @@ class CityPanel extends Component {
                 <div id={this.props.city + "Modal"} className={"modal modal-fixed-footer " + styles.myModal}>
                     <div className="modal-content">
                         <h4>{this.props.city}</h4>
-                        <h6>Daily temperature</h6>
+                        <h5>Daily temperature</h5>
                         <LineChartCustom city={this.props.city} />
+                        <h5>Average temperature</h5>
+                        <BarChartCustom city={this.props.city} />
                         {/* <h6>Temperature today</h6>
                         <LineChart city={this.props.city} />
                         <h6>7-days forecast</h6>

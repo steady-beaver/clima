@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CityPanel from './CityPanel';
+import CityPanel from '../CityPanel/CityPanel';
 import styles from './Content.module.css';
 
 class Content extends Component {
