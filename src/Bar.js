@@ -47,13 +47,11 @@ class Bar extends Component {
 
     formatData = (arr) => {
         for (let i in arr) {
-            arr[i].x = arr[i].x.substring(0, 2)
+            arr[i].date = arr[i].date.split(":")[0]
         }
     }
 
     validation = (city) => {
-
-        // console.log(`Here is ${city}`)
 
         const WD = this.props.weatherData
         if (WD.length > 0) {
@@ -75,14 +73,12 @@ class Bar extends Component {
 
         const dateObject = new Date(milliseconds);
 
-        const humanDateTimeFormat = dateObject.toLocaleString('en-GB'); //2019-12-9 10:30:15
+        const humanDateTimeFormat = dateObject.toLocaleString('en-GB'); //2019/12/9 10:30:15
 
-        const humanDateTimeFormatSplittedArray = humanDateTimeFormat.split(',');
-
-        const humanDateFormat = humanDateTimeFormatSplittedArray[0];
+        const humanDateFormat = humanDateTimeFormat.split(',')[0];
 
         return humanDateFormat.replace(/\//g, "-");
-        
+
         ;
     }
 
@@ -93,8 +89,6 @@ class Bar extends Component {
         const sunrise = currentDayData.sunrise;
         const sunset = currentDayData.sunset;
 
-        console.log(`${sunrise} ${sunset} ${currentTime}`)
-        console.log(`${this.fromUnixToStr(sunrise)} ${this.fromUnixToStr(sunset)} ${this.fromUnixToStr(currentTime)}`)
         if (sunrise < currentTime && currentTime < sunset) return true;
         else return false;
 
@@ -115,12 +109,15 @@ class Bar extends Component {
         }
 
 
-        return daysArr.map(dayData => {
+        let data = daysArr.map(dayData => {
             return {
                 "date": this.getDateFromUNIX(dayData.dt),
                 "average temperature": calculateAvgTemp(dayData.temp)
             }
         })
+
+        data.shift();
+        return data;
     }
 
     handleSubmit = async (e) => {
@@ -163,14 +160,15 @@ class Bar extends Component {
 
 
             let dayTempArr = [];
-
+            
+            console.log("RESult Weather Object")
             console.log(resWeather)
 
             for (let i in resWeather.hourly) {
                 let date = this.fromUnixToStr(resWeather.hourly[i].dt)
                 dayTempArr.push({
-                    x: date,
-                    y: resWeather.hourly[i].temp
+                    date: date,
+                    hours: resWeather.hourly[i].temp
                 })
                 if (date === "0:00:00") break;
             }
@@ -185,7 +183,7 @@ class Bar extends Component {
             let alt = "";
 
 
-            if (resImages.total == 0) {
+            if (resImages.total === 0) {
                 unified_img_url = def_img
                 //"https://www.developco.com/wp-content/uploads/2015/08/CCCC-home-2-500x200.jpg"
                 alt = "Unfortunately Unsplash API does not provide images for that town."
@@ -219,7 +217,6 @@ class Bar extends Component {
             }
 
             this.props.onAddForecast(weatherObj);
-            console.log(this.helperEl)
             this.helperEl.innerHTML = "";
             this.rotationTween.restart();
 
@@ -245,11 +242,11 @@ class Bar extends Component {
                 <h1>Clima</h1>
                 <div className={styles.Sun} ref={div => this.sunElement = div} >
                     <img src="imgs/sun/stylized-sun-bg.png" alt="sun" />
-                </div>
+                </div>   
                 <form className={styles.Form} onSubmit={this.handleSubmit}>
                     <input type="text" spellCheck="false" id="city" name="city" placeholder="City" onChange={this.handleCityChange} />
                     <span className="helper-text left-align red-text" id="helper-text" ></span>
-                    <button className="waves-effect waves-light btn teal lighten-2" disabled={true} type="submit">Get forecast</button>
+                    <button className="waves-effect   btn teal lighten-2" disabled={true} type="submit">Get forecast</button>
                 </form>
             </div>
         );

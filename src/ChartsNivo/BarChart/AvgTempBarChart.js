@@ -26,22 +26,19 @@ class AvgTempBarChart extends Component {
         return (
             <div className={styles.BarChart}>
 
-                {/* <Customization data={this.extractDataFromStore(this.props.city)} className={styles.BarChart} /> */}
 
                 <ResponsiveBar
                     data={this.extractDataFromStore(this.props.city)}
                     keys={['average temperature']}
                     indexBy="date"
-                    margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
-                    padding={0.3}
-                    colors={{ scheme: 'nivo' }}
+                    margin={{ top: 30, right: 30, bottom: 42, left: 30 }}
+                    colors="rgb(77, 182, 172)"
                     axisTop={null}
                     axisRight={null}
                     axisBottom={{
                         tickSize: 5,
                         tickPadding: 5,
-                        tickRotation: 0,
-                        legend: '8 days forecast',
+                        tickRotation: 30,
                         legendPosition: 'middle',
                         legendOffset: 32
                     }}
@@ -53,9 +50,7 @@ class AvgTempBarChart extends Component {
                         legendPosition: 'middle',
                         legendOffset: -40
                     }}
-                    labelSkipWidth={12}
-                    labelSkipHeight={12}
-                    labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+                    enableGridX={false}
                     legends={[]}
                     animate={false}
                 />

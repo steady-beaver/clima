@@ -5,7 +5,7 @@ const CustomChart = (props) => {
     return(
         <ResponsiveLine
                     data={props.data}
-                    margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
+                    margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
                     xScale={{ type: 'point' }}  // # 
                     yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false}}
                     curve="cardinal"
@@ -31,7 +31,8 @@ const CustomChart = (props) => {
                         legendPosition: 'middle'
                     }}
                     enableGridX={false}
-                    colors={{ scheme: 'nivo' }}
+                    // gridYValues={[5,10,15,10,25,30,35]}
+                    colors="rgb(77, 182, 172)"
                     enablePointLabel={false}
                     isInteractive={true}
                     enableCrosshair={false}

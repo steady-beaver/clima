@@ -21,8 +21,8 @@ const initialState = [{
    },
    daily: {
         tempHourArr: [{ 
-            dt: formattedDate,
-            temp: tempC
+            x: formattedDate,
+            y: tempC
         }]
     },
    forecast: [

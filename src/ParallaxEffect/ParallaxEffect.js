@@ -1,5 +1,4 @@
-import 'materialize-css/dist/css/materialize.min.css';
-import M from 'materialize-css/dist/js/materialize.min.js';
+import M from "materialize-css/dist/js/materialize.min.js";
 import React, { Component } from 'react';
 import styles from './ParallaxEffect.module.css';
 
@@ -8,8 +7,10 @@ import styles from './ParallaxEffect.module.css';
 class ParallaxEffect extends Component {
 
     componentDidMount() {
-        var elems = document.querySelectorAll('.parallax');
-        var instances = M.Parallax.init(elems, {});
+        document.addEventListener('DOMContentLoaded', function(e) {
+            const elems = document.querySelectorAll('.parallax');
+            M.Parallax.init(elems, {    });
+          });
     }
 
 
@@ -17,7 +18,7 @@ class ParallaxEffect extends Component {
         return (
             <div className={"parallax-container " + styles.fullWidth + " " + styles.myParallax}>
                 <div className="parallax">
-                    <img src="imgs/ParallaxEffect/parallax-effect-1.jpg" />
+                    <img src="imgs/ParallaxEffect/parallax-effect-1.jpg" alt="Just cool parallax effect" />
                 </div>
             </div>
         )
