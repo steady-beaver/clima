@@ -25,6 +25,7 @@ class LineChartCustom extends Component {
     render() {
         return (
             <div className={styles.ChartContainer}>
+                <h6>Daily temperature</h6>
                 <ResponsiveContainer >
                     <LineChart
                         data={this.extractDailyData(this.props.city)}

@@ -2,6 +2,10 @@
     margin-bottom: 30px;
 }
 
+.Bar h1{
+    font-family: 'Sansita Swashed', cursive;
+    font-weight: 500;
+}
 
 .Bar .Form{
     margin: 0 auto;

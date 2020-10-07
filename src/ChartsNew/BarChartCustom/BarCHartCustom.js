@@ -37,6 +37,7 @@ class BarChartCustom extends Component {
     render() {
         return (
             <div className={styles.ChartContainer}>
+                <h6>7-days forecast</h6>
                 <ResponsiveContainer >
                     <BarChart 
                         data={this.extractForecast(this.props.city)}

@@ -78,7 +78,7 @@ class CityPanel extends Component {
 
     render() {
         return (
-            <div className={styles.modal}>
+            <div className={styles.CityCard}>
                 <div className="col s12 m4" >
                     <div className="card">
                         <div className="card-image">
@@ -96,12 +96,12 @@ class CityPanel extends Component {
 
 
 
-                <div id={this.props.city + "Modal"} className={"modal modal-fixed-footer " + styles.myModal}>
+                <div id={this.props.city + "Modal"} className={"modal modal-fixed-footer " + styles.Modal}>
                     <div className="modal-content">
                         <h4>{this.props.city}</h4>
-                        <h5>Daily temperature</h5>
+                       
                         <LineChartCustom city={this.props.city} />
-                        <h5>Average temperature</h5>
+                        
                         <BarChartCustom city={this.props.city} />
                         {/* <h6>Temperature today</h6>
                         <LineChart city={this.props.city} />

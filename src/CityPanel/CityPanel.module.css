@@ -1,23 +1,36 @@
-.myModal { 
+.CityCard span{
+    font-family: 'Sansita Swashed', cursive;
+    font-weight: 700 !important;
+}
+
+
+
+.CityCard .Modal { 
     top: 3% !important;
     width: 70% !important ; 
     height: 92% !important ; 
     max-height: 100% !important ; 
 } 
 
-.myModal .ChartContainer {
+.CityCard .Modal .ChartContainer {
     width: 80%;
     height: 35%;
-    margin: 0 auto;
+    margin: 0 auto 7%;
+}
+
+.CityCard .Modal h4{
+    font-family: 'Sansita Swashed', cursive;
+    font-weight: 500;
+    margin-bottom: 7%;
 }
 
 @media (max-width: 900px) {
 
-    .myModal{
+    .CityCard .Modal{
         width: 90% !important ; 
     }
 
-    .myModal .ChartContainer {
+    .CityCard .Modal .ChartContainer {
         width: 100%;
         
     }
@@ -25,13 +38,13 @@
 
 @media (max-width: 450px) {
 
-    .myModal{
+    .CityCard .Modal{
         width: 100% !important ; 
         top: 0 !important;
         height: 100% !important ; 
     }
 
-    .myModal .ChartContainer {
+    .CityCard .Modal .ChartContainer {
         min-width: 350px;
         min-height: 200px;
     }
