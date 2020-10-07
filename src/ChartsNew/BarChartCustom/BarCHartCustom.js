@@ -9,7 +9,7 @@ class CustomizedAxisTick extends Component{
           
          return (
           <g transform={`translate(${x},${y})`}>
-          <text x={0} y={0} dy={16}  fill="#666" transform="rotate(20)">{payload.value}</text>
+          <text x={0} y={0} dy={16}  fill="#666" transform="rotate(24)">{payload.value}</text>
         </g>
       );
     }
@@ -29,14 +29,14 @@ class BarChartCustom extends Component {
     // [
     //     {
     //         "date": "formatted date 1",
-    //         "average temperature": 32
+    //         "avr": 32
     //     }
     // ]
 
 
     render() {
         return (
-            <div className={styles.ChartContainer}>
+            <div className={styles.ChartContainer + " " + styles.BarChartContainer}>
                 <h6>7-days forecast</h6>
                 <ResponsiveContainer >
                     <BarChart 
@@ -44,10 +44,10 @@ class BarChartCustom extends Component {
                         margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
 
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="date" height={60} tick={<CustomizedAxisTick/>} interval = "preserveStartEnd"/>
-                        <YAxis type="number" domain={['dataMin - 2', "auto"]} tickCount={7} label={{ value: "Average temperature \u2103", position: "insideLeft", angle: -90, dy: 60 }} />
-                        <Tooltip />
-                        <Bar dataKey="Average temperature" fill="#4DB6AC" />
+                        <XAxis dataKey="date" height={60} tick={<CustomizedAxisTick/>} interval = {0}/>
+                        <YAxis type="number" domain={['dataMin - 2', 'auto']} minTickGap={3} label={{ value: "Average temperature \u2103", position: "insideLeft", angle: -90, dy: 60 }} />
+                        <Tooltip labelFormatter={lbl => {return null}} formatter={(value, name, props) => { return [`${props.payload.avr}\u2103`, `Average temperature on ${props.payload.date}`] } } separator=" is " />
+                        <Bar dataKey="avr" fill="#4DB6AC" />
                     </BarChart>
                 </ResponsiveContainer >
             </div>

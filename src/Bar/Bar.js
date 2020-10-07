@@ -47,7 +47,7 @@ class Bar extends Component {
 
     formatData = (arr) => {
         for (let i in arr) {
-            arr[i].date = arr[i].date.split(":")[0]
+            arr[i].Hour = arr[i].Hour.split(":")[0]
         }
     }
 
@@ -112,7 +112,7 @@ class Bar extends Component {
         let data = daysArr.map(dayData => {
             return {
                 "date": this.getDateFromUNIX(dayData.dt),
-                "Average temperature": calculateAvgTemp(dayData.temp)
+                "avr": calculateAvgTemp(dayData.temp)
             }
         })
 
@@ -159,21 +159,21 @@ class Bar extends Component {
             resWeather = await resWeather.json()
 
 
-            let dayTempArr = [];
+            let hourTempArr = [];
             
             console.log("RESult Weather Object")
             console.log(resWeather)
 
             for (let i in resWeather.hourly) {
                 let date = this.fromUnixToStr(resWeather.hourly[i].dt)
-                dayTempArr.push({
-                    date: date,
-                    hours: resWeather.hourly[i].temp
+                hourTempArr.push({
+                    Hour: date,
+                    Temperature: resWeather.hourly[i].temp
                 })
                 if (date === "0:00:00") break;
             }
 
-            this.formatData(dayTempArr)
+            this.formatData(hourTempArr)
 
 
             let resImages = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.state.IMAGES_API_KEY}&page=1&per_page=3&query=${city}`)
@@ -192,6 +192,7 @@ class Bar extends Component {
                 alt = resImages.results[2].alt_description
             }
 
+            //====================   Weather Object   ========================
 
             let weatherObj = {
                 place: {
@@ -211,7 +212,7 @@ class Bar extends Component {
                     dayLight: this.isDayLight(resWeather.current)
                 },
                 daily: {
-                    tempHourArr: dayTempArr
+                    tempHourArr: hourTempArr
                 },
                 forecast: this.refine(resWeather.daily)
             }

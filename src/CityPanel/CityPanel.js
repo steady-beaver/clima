@@ -99,14 +99,8 @@ class CityPanel extends Component {
                 <div id={this.props.city + "Modal"} className={"modal modal-fixed-footer " + styles.Modal}>
                     <div className="modal-content">
                         <h4>{this.props.city}</h4>
-                       
                         <LineChartCustom city={this.props.city} />
-                        
                         <BarChartCustom city={this.props.city} />
-                        {/* <h6>Temperature today</h6>
-                        <LineChart city={this.props.city} />
-                        <h6>7-days forecast</h6>
-                        <AvgTempBarChart city={this.props.city} /> */}
                     </div>
                     <div className="modal-footer">
                         <a href="#!" className="modal-close waves-effect waves-green btn-flat">OK</a>

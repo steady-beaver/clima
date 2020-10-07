@@ -6,22 +6,34 @@
 
 
 .CityCard .Modal { 
-    top: 3% !important;
-    width: 70% !important ; 
-    height: 92% !important ; 
-    max-height: 100% !important ; 
+    top: 3vh !important;
+    width: 80% !important ; 
+    height: 94vh !important ; 
+    max-height: 100vh !important ; 
+  
 } 
 
-.CityCard .Modal .ChartContainer {
+.CityCard .Modal>div:first-child{
+     overflow: hidden; 
+}
+
+
+.CityCard .Modal .ChartContainer.LineChartContainer{
     width: 80%;
-    height: 35%;
-    margin: 0 auto 7%;
+    height: 28vh;
+    margin: 0 auto 5vh;
+}
+
+.CityCard .Modal .ChartContainer.BarChartContainer{
+    width: 78%;
+    height: 33vh;
+    margin: 0 auto 2vh;
 }
 
 .CityCard .Modal h4{
     font-family: 'Sansita Swashed', cursive;
     font-weight: 500;
-    margin-bottom: 7%;
+    margin-bottom: 5vh;
 }
 
 @media (max-width: 900px) {
@@ -41,8 +53,12 @@
     .CityCard .Modal{
         width: 100% !important ; 
         top: 0 !important;
-        height: 100% !important ; 
+        height: 100vh !important ; 
     }
+
+    .CityCard .Modal>div:first-child{
+        overflow: visible; 
+   }
 
     .CityCard .Modal .ChartContainer {
         min-width: 350px;
