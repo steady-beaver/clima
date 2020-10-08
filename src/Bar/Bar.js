@@ -2,7 +2,7 @@ import { gsap } from 'gsap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
-import def_img from '../utils/def_image_500x200.jpg';
+import def_img from '../utils/def_house_img.jpg';
 import styles from './Bar.module.css';
 
 
@@ -30,7 +30,7 @@ class Bar extends Component {
     }
 
     unifyImg = (img_url) => {
-        img_url = img_url.replace('&w=400', '&w=500&h=200')
+        img_url = img_url.replace('&w=400', '&w=300&h=200')
         img_url = img_url.replace('&fit=max', '&fit=crop')
         return img_url
     }

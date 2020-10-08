@@ -81,15 +81,17 @@ class CityPanel extends Component {
             <div className={styles.CityCard}>
                 <div className="col s12 m4" >
                     <div className="card">
-                        <div className="card-image">
+                        <div className={"card-image " + styles.UpperPart}>
                             <img src={this.props.img_url} alt={this.props.img_alt} />
                             <span className="card-title ">{this.props.city}</span>
                             <a className="btn-floating  halfway-fab waves-effect  teal lighten-2 modal-trigger" href={"#" + this.props.city + "Modal"} ><i className="material-icons">add</i></a>
                         </div>
-                        <div className="card-content ">
-                            <canvas ref={this.canvasRef} width="128" height="128" />
-                            <div>{Math.round(this.props.temp)}</div>
-                            <div>{this.capitalizeFirst(this.props.desc)}</div>
+                        <div className={"card-content " + styles.Content}>
+                            <div>
+                                <canvas ref={this.canvasRef} width="300" height="300"/>
+                            </div>
+                            <div className={styles.Temp}>{Math.round(this.props.temp)+"\u00B0"}</div>
+                            <div className={styles.Desc}>{this.capitalizeFirst(this.props.desc)}</div>
                         </div>
                     </div>
                 </div >

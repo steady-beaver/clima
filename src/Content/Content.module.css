@@ -1,10 +1,11 @@
 .Content{
     margin: 15px;
-    border: 1px solid grey;
-    padding: 20px;
-    padding-bottom: 0;
+    padding: 20px 20px 1px 20px;
+    border-radius: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.46);
+    background-color: rgb(249, 249, 249);
 }
 
-.Initial{
+.NoData{
     margin-bottom: 300px;
 }

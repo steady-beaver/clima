@@ -9,7 +9,7 @@ class Content extends Component {
         let weatherList;
         
         if(this.props.weatherData.length === 0){
-            weatherList = (<div className={styles.Initial}>No data</div>)
+            weatherList = (<div className={styles.NoData}>No data</div>)
         }else{
             weatherList = (
                 this.props.weatherData.map(chunk => {
