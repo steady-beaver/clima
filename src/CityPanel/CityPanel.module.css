@@ -17,6 +17,8 @@
 /*===============  Lower part =================*/
 .CityCard .Content>div:first-child{
     margin: 0 10%;
+    position: relative;
+    top: 10px;
 }
 
 .CityCard .Content>div:first-child canvas{
