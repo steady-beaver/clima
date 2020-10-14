@@ -45,7 +45,7 @@ class LineChartCustom extends Component {
 
 const mapStateToProps = state => {
     return {
-        weatherData: state.weatherReducer
+        weatherData: state.weatherReducer.weatherArr
     }
 }
 

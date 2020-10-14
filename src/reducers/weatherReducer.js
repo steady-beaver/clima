@@ -2,7 +2,7 @@
 
 
 /*
-const initialState = [{
+weatherArr = [{
    place:{
        city: "city",
        lat: lat,
@@ -35,7 +35,10 @@ const initialState = [{
 }];
 */
 
-const initialState = []
+const initialState = {
+    isLoading: false,
+    weatherArr: [],
+}
 
 const weatherReducer = (state = initialState, action) => {
 
@@ -43,8 +46,20 @@ const weatherReducer = (state = initialState, action) => {
 
         case 'GET_CITY_WEATHER': {
 
-            let weatherObj = action.payload
-            return [...state, weatherObj]
+            const weatherObj = action.payload
+            const newState = { isLoading: state.isLoading, weatherArr: [...state.weatherArr, weatherObj] }
+            console.log("Reducer newState")
+            console.log(newState)
+            return newState;
+
+        }
+
+        case 'WAIT_LOADING': {
+            return { ...state, isLoading: true }
+        }
+
+        case 'RESPONSE_RECEIVED': {
+            return { ...state, isLoading: false }
         }
 
         default: return state;

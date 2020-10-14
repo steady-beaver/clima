@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/actions';
+import actions from '../actions/actionCreators';
 import makeCustomRequests from '../utils/makeCustomRequests';
 import simpleFuncs from '../utils/simpleFunctions';
 import styles from './Bar.module.css';
@@ -63,6 +63,8 @@ class Bar extends Component {
 
             //====================    Get wanted data   ====================
 
+            this.props.onRequestSend();
+
             const coords = await makeCustomRequests.getCityCoordinates(city)
 
             const [resWeather, hourTempArr] = await makeCustomRequests.getWeatherData(coords)
@@ -71,10 +73,11 @@ class Bar extends Component {
 
             //====================    Sun animation   ====================
 
+            
             this.rotationTween.restart();
 
             //====================  Compose Weather Object   ========================
-
+            
             let weatherObj = {
                 place: {
                     city: city,
@@ -97,25 +100,27 @@ class Bar extends Component {
                 },
                 forecast: simpleFuncs.refineData(resWeather.daily)
             }
-
+            
+            
             this.props.onAddForecast(weatherObj);
             this.helperEl.innerHTML = "";
+            this.props.onResponseReceived();
 
         } catch (e) {
-
+            
             this.helperEl.innerHTML = e.message;
 
             console.error(e.name + ' caught! \n' + e);
         }
-
+        
     }
-
+    
     componentDidMount() {
         this.helperEl = document.getElementById("helper-text");
         this.rotationTween = gsap.to(this.sunElement, { duration: 1.5, rotation: 360 });
     }
-
-
+    
+    
     render() {
 
         return (
@@ -136,13 +141,15 @@ class Bar extends Component {
 
 const mapStateToProps = state => {
     return {
-        weatherData: state.weatherReducer
+        weatherData: state.weatherReducer.weatherArr
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddForecast: (weatherObj) => dispatch(actions.GET_CITY_WEATHER(weatherObj))
+        onAddForecast: (weatherObj) => dispatch(actions.GET_CITY_WEATHER(weatherObj)),
+        onRequestSend: () => dispatch(actions.WAIT_LOADING()),
+        onResponseReceived: () => dispatch(actions.RESPONSE_RECEIVED())
     }
 }
 
