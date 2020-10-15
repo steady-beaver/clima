@@ -82,7 +82,7 @@ class CityPanel extends Component {
                 <div className="col s12 m4" >
                     <div className="card">
                         <div className={"card-image " + styles.UpperPart}>
-                            <img src={this.props.img_url} alt={this.props.img_alt} />
+                            <img src={this.props.img_url} alt={this.props.img_alt} width="300" height="200" />
                             <span className="card-title ">{this.props.city}</span>
                             <a className="btn-floating  halfway-fab waves-effect  teal lighten-2 modal-trigger" href={"#" + this.props.city + "Modal"} ><i className="material-icons">add</i></a>
                         </div>

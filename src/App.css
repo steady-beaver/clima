@@ -1,4 +1,9 @@
+html{
+    overflow-x: hidden;
+}
+
 .App {
     text-align: center;
     font-family: 'Sansita Swashed', cursive;
+    
 }

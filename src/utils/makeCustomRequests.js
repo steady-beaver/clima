@@ -1,15 +1,15 @@
 import def_img from './def_house_img.jpg'
 import simpleFuncs from './simpleFunctions'
 
-const APIs = {
-    WEATHER_API_KEY: "ccec765bf7b5d7e644d77172a0eadb7c",
-    IMAGES_API_KEY: "Cs5VM9ECaEgKddglzuvOxLIDx5rL86aanVD9VhtDY-4",
-    GEO_API_KEY: "2554eb196ece4fea83c4ccc5875aa8e8"
-}
+// const APIs = {
+//     WEATHER_API_KEY: "ccec765bf7b5d7e644d77172a0eadb7c",
+//     IMAGES_API_KEY: "Cs5VM9ECaEgKddglzuvOxLIDx5rL86aanVD9VhtDY-4",
+//     GEO_API_KEY: "2554eb196ece4fea83c4ccc5875aa8e8"
+// }
 
 export const getCityCoordinates = async (city) => {
-
-    let resGeoCoordinates = await fetch(`https://api.opencagedata.com/geocode/v1/json?key=${APIs.GEO_API_KEY}&q=${city}&no_annotations=1&limit=1`)
+   
+    let resGeoCoordinates = await fetch(`https://api.opencagedata.com/geocode/v1/json?key=${process.env.REACT_APP_GEO}&q=${city}&no_annotations=1&limit=1`)
     resGeoCoordinates = await resGeoCoordinates.json()
     const category = resGeoCoordinates.results[0].components._category
     const type = resGeoCoordinates.results[0].components._type
@@ -25,7 +25,7 @@ export const getCityCoordinates = async (city) => {
 }
 
 export const getWeatherData = async (coords) => {
-    let resWeather = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lng}&exclude=minutely&appid=${APIs.WEATHER_API_KEY}&units=metric`)
+    let resWeather = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lng}&exclude=minutely&appid=${process.env.REACT_APP_WEATHER}&units=metric`)
 
     if (!resWeather.ok) {
         throw new Error("Problem with Open Weather API")
@@ -50,7 +50,7 @@ export const getWeatherData = async (coords) => {
 }
 
 export const getCityImage = async (city) => {
-    let resImages = await fetch(`https://api.unsplash.com/search/photos?client_id=${APIs.IMAGES_API_KEY}&page=1&per_page=3&query=${city}`)
+    let resImages = await fetch(`https://api.unsplash.com/search/photos?client_id=${process.env.REACT_APP_IMAGES}&page=1&per_page=3&query=${city}`)
     resImages = await resImages.json()
 
     let unified_img_url = "";
