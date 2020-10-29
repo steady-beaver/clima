@@ -1,11 +1,6 @@
 import def_img from './def_house_img.jpg'
 import simpleFuncs from './simpleFunctions'
 
-// const APIs = {
-//     WEATHER_API_KEY: "ccec765bf7b5d7e644d77172a0eadb7c",
-//     IMAGES_API_KEY: "Cs5VM9ECaEgKddglzuvOxLIDx5rL86aanVD9VhtDY-4",
-//     GEO_API_KEY: "2554eb196ece4fea83c4ccc5875aa8e8"
-// }
 
 export const getCityCoordinates = async (city) => {
    

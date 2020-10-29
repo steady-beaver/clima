@@ -64,6 +64,41 @@ export const formatData = (arr) => {
     }
 }
 
+export const pickProperSVG = (sky, skyID, dayLight) => {
+    switch (sky) {
+        case 'Thunderstorm': return window.Skycons.WIND;
+        case 'Drizzle': return window.Skycons.RAIN;
+        case 'Rain': return window.Skycons.SLEET;
+        case 'Snow': return window.Skycons.SNOW;
+        case 'Clear': {
+            if (dayLight)
+                return window.Skycons.CLEAR_DAY;
+            else
+                return window.Skycons.CLEAR_NIGHT;
+        }
+
+        case 'Clouds': {
+            // console.log("SkyID: " + skyID + " " + typeof(skyID))
+            if (skyID === 801 || skyID === 802) {
+                if (dayLight) return window.Skycons.PARTLY_CLOUDY_DAY;
+                else return window.Skycons.PARTLY_CLOUDY_NIGHT;
+            }
+            if (skyID === 803 || skyID === 804)
+                return window.Skycons.CLOUDY;
+            break;
+        }
+
+        default: {
+            if (skyID >= 700) return window.Skycons.FOG;
+            else throw new Error("Not relevant current weather, caught in pickProperSVG function ")
+        }
+    }
+}
+
+export const capitalizeFirst = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 
 export default {
     unifyImg,
@@ -72,5 +107,6 @@ export default {
     isDayLight,
     refineData,
     formatData,
-
+    pickProperSVG,
+    capitalizeFirst,
 }
