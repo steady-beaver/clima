@@ -27,6 +27,15 @@
     left: -18vw;
 }
 
+.Bar .SunAnimation{
+    animation: rotate360 2.5s ease-in-out 1;
+}
+
+@keyframes rotate360{
+    from{ transform: rotate(0deg); }
+    to{ transform: rotate(360deg); }
+  }
+
 .Bar .Sun img{
     width: 45vw;
     height: auto;

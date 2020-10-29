@@ -1,23 +1,32 @@
-// import { gsap } from 'gsap';
-import React, { useContext, useEffect } from 'react';
+
+import React, { useContext, useEffect, useState } from 'react';
 import { WeatherContext } from '../App';
 import makeCustomRequests from '../utils/makeCustomRequests';
 import simpleFuncs from '../utils/simpleFunctions';
 import styles from './Bar.module.css';
 
 
-
 const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
 
-    const weatherData = useContext(WeatherContext)
-
-    // const sunRef = useRef(null);
     let helperEl = null;
-    // let rotationTween = null;
 
-    useEffect(()=>{
+    const weatherData = useContext(WeatherContext)
+    const [animationCLass, setAnimationClass] = useState(null)
+
+    const animate = () => {
+        setAnimationClass(styles.SunAnimation)
+
+        setTimeout(() => {
+            setAnimationClass("")
+        }, 2500)
+    }
+
+    // useEffect(() => {
+    //     animate()
+    // }, [])
+
+    useEffect(() => {
         helperEl = document.getElementById("helper-text");
-        // rotationTween = gsap.to(sunRef, { duration: 1.5, rotation: 360 });
     })
 
     const handleCityChange = (e) => {
@@ -69,11 +78,11 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
 
             //====================    Sun animation   ====================
 
-            
+            animate()
             // rotationTween.restart();
 
             //====================  Compose Weather Object   ========================
-            
+
             let weatherObj = {
                 place: {
                     city: city,
@@ -96,25 +105,25 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
                 },
                 forecast: simpleFuncs.refineData(resWeather.daily)
             }
-            
-            
+
+
             onAddForecast(weatherObj);
             helperEl.innerHTML = "";
             onResponseReceived();
 
         } catch (e) {
-            
+
             helperEl.innerHTML = e.message;
 
             console.error(e.name + ' caught! \n' + e);
         }
-        
+
     }
 
     return (
         <div className={styles.Bar}>
             <h1>Clima</h1>
-            <div className={styles.Sun} >   {/*  ref={sunRef}  */}
+            <div className={`${styles.Sun} ${animationCLass}`}  >
                 <img src="imgs/sun/stylized-sun-bg.png" alt="sun" />
             </div>
             <form className={styles.Form} onSubmit={handleSubmit}>
