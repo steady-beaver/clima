@@ -6,7 +6,7 @@ import Content from './Content/Content';
 import ParallaxEffect from './ParallaxEffect/ParallaxEffect';
 import PoweredBy from './PoweredBy/PoweredBy';
 
-export const WeatherContext = React.createContext();
+export const WeatherContext = React.createContext([]);
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -45,8 +45,9 @@ function App() {
   const onResponseReceived = () => { return dispatch(actions.RESPONSE_RECEIVED())}
 
   React.useEffect(() => {
-
-  }, [])
+    // console.log("Weather array")
+    // console.log(JSON.stringify(state.weatherArr))
+  })
 
   return (
     <div className="App container" >

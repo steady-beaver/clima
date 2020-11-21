@@ -1,5 +1,5 @@
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { WeatherContext } from '../App';
 import makeCustomRequests from '../utils/makeCustomRequests';
 import simpleFuncs from '../utils/simpleFunctions';
@@ -8,10 +8,13 @@ import styles from './Bar.module.css';
 
 const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
 
-    let helperEl = null;
+    
+    
 
-    const weatherData = useContext(WeatherContext)
+    const weatherData = React.useContext(WeatherContext)
+    const [helperText, setHelperText] = useState(null)
     const [animationCLass, setAnimationClass] = useState(null)
+    const [isSubmitButtonDisabled, setSubmitButtonDisabled] = useState(true)
 
     const animate = () => {
         setAnimationClass(styles.SunAnimation)
@@ -22,31 +25,24 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
     }
 
     // useEffect(() => {
-    //     animate()
-    // }, [])
-
-    useEffect(() => {
-        helperEl = document.getElementById("helper-text");
-    })
+    //     helperEl = document.getElementById("helper-text");
+    // })
 
     const handleCityChange = (e) => {
-        const elementSubmitButton = document.querySelector('form button')
-
         if (e.target.value) {
-            elementSubmitButton.disabled = false
+            setSubmitButtonDisabled(false)
         }
-        else elementSubmitButton.disabled = true
+        else setSubmitButtonDisabled(true)
     }
 
     const validation = (city) => {
-
+        
         const WD = weatherData
+        
         if (WD.length > 0) {
             WD.forEach(
                 entry => {
-                    console.log(entry.place.city === city)
                     if (entry.place.city === city) {
-                        helperEl.innerHTML = "You already have data for that city."
                         throw new Error("You already have data for that city! (Client input error)")
                     }
                 }
@@ -59,27 +55,55 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
         try {
             //===================   Form process    =======================
             e.preventDefault();
-            let city = e.target["city"].value.trim();
+
+            let city = e.target["city"].value
+
+            city = city.trim()
             city = city[0].toUpperCase() + city.substring(1)
             validation(city)
 
+            setSubmitButtonDisabled(true)
             e.target["city"].value = ""
-            e.target.children[1].disabled = true
-
+            setHelperText("");
             //====================    Get wanted data   ====================
+            let resWeather;
+            let hourTempArr; 
+            let unified_img_url;
+            let alt;
+            let coords;
 
+            
+            
+            
+            
+            
+            
+            try{
+                
+                
+                coords = await makeCustomRequests.getCityCoordinates(city);
+                
+                [resWeather, hourTempArr] = await makeCustomRequests.getWeatherData(coords);
+    
+                [unified_img_url, alt] = await makeCustomRequests.getCityImage(city);
+                
+                  
+            }catch(e){
+                
+                console.error( e )
+            }
+            
+            
             onRequestSend();
+           
 
-            const coords = await makeCustomRequests.getCityCoordinates(city)
+           
 
-            const [resWeather, hourTempArr] = await makeCustomRequests.getWeatherData(coords)
-
-            const [unified_img_url, alt] = await makeCustomRequests.getCityImage(city);
+           
 
             //====================    Sun animation   ====================
 
             animate()
-            // rotationTween.restart();
 
             //====================  Compose Weather Object   ========================
 
@@ -108,13 +132,11 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
 
 
             onAddForecast(weatherObj);
-            helperEl.innerHTML = "";
             onResponseReceived();
 
+         
         } catch (e) {
-
-            helperEl.innerHTML = e.message;
-
+            setHelperText(e.message) 
             console.error(e.name + ' caught! \n' + e);
         }
 
@@ -126,10 +148,16 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
             <div className={`${styles.Sun} ${animationCLass}`}  >
                 <img src="imgs/sun/stylized-sun-bg.png" alt="sun" />
             </div>
-            <form className={styles.Form} onSubmit={handleSubmit}>
-                <input type="text" spellCheck="false" id="city" name="city" placeholder="City" onChange={handleCityChange} />
-                <span className="helper-text left-align red-text" id="helper-text" ></span>
-                <button className="waves-effect   btn teal lighten-2" disabled={true} type="submit">Get forecast</button>
+            <form className={styles.Form} onSubmit={handleSubmit} data-test="bar-form">
+                <input type="text"
+                    data-test="city-input"
+                    spellCheck="false"
+                   
+                    name="city"
+                    placeholder="City"
+                    onChange={handleCityChange} />
+                <span className="helper-text left-align red-text" data-test="helper-span" >{helperText}</span>
+                <button className="waves-effect   btn teal lighten-2" disabled={isSubmitButtonDisabled} data-test="submit-button" type="submit">Get forecast</button>
             </form>
         </div>
     )
