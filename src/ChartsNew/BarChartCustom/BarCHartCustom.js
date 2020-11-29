@@ -10,7 +10,7 @@ class CustomizedAxisTick extends Component {
 
         return (
             <g transform={`translate(${x},${y})`}>
-                <text x={0} y={0} dy={16} fill="#666" transform="rotate(24)">{payload.value}</text>
+                <text x={0} y={0} dy={16} fill="#666" transform="rotate(24)"> {payload.value} </text>
             </g>
         );
     }
