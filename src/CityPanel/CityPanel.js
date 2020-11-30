@@ -17,13 +17,21 @@ const CityPanel = (props) => {
         skycons.play();
     }
 
-    const modalInitialization = () => {
+    // const modalInitialization = () => {
+    //     document.addEventListener('DOMContentLoaded', function (e) {
+
+    //         const elems = document.querySelector('.modal');
+    //         M.Modal.init(elems, {});
+    //     });
+    // }
+
+    useEffect(()=>{
         document.addEventListener('DOMContentLoaded', function (e) {
 
             const elems = document.querySelector('.modal');
             M.Modal.init(elems, {});
         });
-    }
+    },[])
 
     useEffect(() => {
         const elems = document.querySelectorAll('.modal');
