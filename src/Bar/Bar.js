@@ -8,9 +8,6 @@ import styles from './Bar.module.css';
 
 const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
 
-    
-    
-
     const weatherData = React.useContext(WeatherContext)
     const [helperText, setHelperText] = useState(null)
     const [animationCLass, setAnimationClass] = useState(null)
@@ -70,12 +67,7 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
             let hourTempArr; 
             let unified_img_url;
             let alt;
-            let coords;
-
-            
-            
-            
-            
+            let coords; 
             
             
             try{
@@ -95,11 +87,7 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
             
             
             onRequestSend();
-           
-
-           
-
-           
+    
 
             //====================    Sun animation   ====================
 
@@ -130,16 +118,13 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
                 forecast: simpleFuncs.refineData(resWeather.daily)
             }
 
-
             onAddForecast(weatherObj);
             onResponseReceived();
 
-         
         } catch (e) {
             setHelperText(e.message) 
             console.error(e.name + ' caught! \n' + e);
         }
-
     }
 
     return (
