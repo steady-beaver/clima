@@ -6,7 +6,7 @@ import simpleFuncs from '../utils/simpleFunctions';
 import styles from './Bar.module.css';
 
 
-const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
+const Bar = ({ onAddForecast, onRequestSent }) => {
 
     const weatherData = React.useContext(WeatherContext)
     const [helperText, setHelperText] = useState(null)
@@ -20,10 +20,6 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
             setAnimationClass("")
         }, 2500)
     }
-
-    // useEffect(() => {
-    //     helperEl = document.getElementById("helper-text");
-    // })
 
     const handleCityChange = (e) => {
         if (e.target.value) {
@@ -69,7 +65,9 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
             let alt;
             let coords; 
             
+            onRequestSent();
             
+
             try{
                 
                 
@@ -85,9 +83,6 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
                 console.error( e )
             }
             
-            
-            onRequestSend();
-    
 
             //====================    Sun animation   ====================
 
@@ -119,7 +114,7 @@ const Bar = ({ onAddForecast, onRequestSend, onResponseReceived }) => {
             }
 
             onAddForecast(weatherObj);
-            onResponseReceived();
+            
 
         } catch (e) {
             setHelperText(e.message) 

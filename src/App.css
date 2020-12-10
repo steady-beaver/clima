@@ -7,3 +7,9 @@ html{
     font-family: 'Sansita Swashed', cursive;
     
 }
+
+/* Materialize Classes Overwrite */
+
+.card{
+    margin-bottom: 30px;
+}

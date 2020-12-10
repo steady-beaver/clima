@@ -8,10 +8,10 @@ jest.mock('../utils/makeCustomRequests')
 
 // const setup = () => {
 //     const mockAddForecast = jest.fn();
-//     const mockRequestSend = jest.fn();
+//     const mockRequestSent = jest.fn();
 //     const mockResponseReceived = jest.fn();
 
-//     return shallow(<Bar onAddForecast={mockAddForecast} onRequestSend={mockRequestSend} onResponseReceived={mockResponseReceived}  />)
+//     return shallow(<Bar onAddForecast={mockAddForecast} onRequestSent={mockRequestSent}  />)
 // }
 
 test('Renders without problem', ()=>{
@@ -46,24 +46,6 @@ test('Submit button is disabled when input is empty \
 
 
 
-// test("Testing does handleSubmit execute after submitting the form  through mocking onRequestSend ", () => {
-
-//      const mockRequestSend = jest.fn().mockName('Omega');
-//     // onAddForecast={jest.fn()} onRequestSend={mockRequestSend} onResponseReceived={jest.fn()}
-//     const wrapper = shallow(<Bar onRequestSend = {mockRequestSend} onAddForecast={jest.fn()} onResponseReceived={jest.fn()} />)
-    
-//     const mockEvent = {    
-//             preventDefault() { }, 
-//             target: {city: {value: "Mancho" }}  
-//         }
-    
-//         const formEl = findByTestAttr(wrapper, 'bar-form')
-//         formEl.simulate('submit', mockEvent )
-        
-        
-//         expect(mockRequestSend).toHaveBeenCalled()
-    
-// })
 
 
 

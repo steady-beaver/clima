@@ -5,59 +5,26 @@ import Bar from './Bar/Bar';
 import Content from './Content/Content';
 import ParallaxEffect from './ParallaxEffect/ParallaxEffect';
 import PoweredBy from './PoweredBy/PoweredBy';
+import reducer from './reducer';
 
 export const WeatherContext = React.createContext([]);
-
-const reducer = (state, action) => {
-  switch (action.type) {
-
-    case 'GET_CITY_WEATHER': {
-
-      const weatherObj = action.payload
-      const newState = { isLoading: state.isLoading, weatherArr: [...state.weatherArr, weatherObj] }
-      console.log("Reducer newState")
-      console.log(newState)
-      return newState;
-
-    }
-
-    case 'WAIT_LOADING': {
-      return { ...state, isLoading: true }
-    }
-
-    case 'RESPONSE_RECEIVED': {
-      return { ...state, isLoading: false }
-    }
-
-    default:
-      throw new Error(`Invalid action type ${action.type}`)
-  }
-}
 
 
 function App() {
   const [state, dispatch] = React.useReducer(reducer, { isLoading: false, weatherArr: [] })
 
-  // example const setLanguage = (lang) => { return dispatch({type: "setLanguage", payload: lang}) }
-
   const onAddForecast = (weatherObj) => { return dispatch(actions.GET_CITY_WEATHER(weatherObj))  }
-  const onRequestSend = () => { return dispatch(actions.WAIT_LOADING())  }
-  const onResponseReceived = () => { return dispatch(actions.RESPONSE_RECEIVED())}
-
-  React.useEffect(() => {
-    // console.log("Weather array")
-    // console.log(JSON.stringify(state.weatherArr))
-  })
+  const onRequestSent = () => { return dispatch(actions.WAIT_RESPONSE())  }
+  const onDeleteCard = (city) => { return dispatch(actions.DELETE_CITY_CARD(city))  }
 
   return (
     <div className="App container" >
 
       <WeatherContext.Provider value = {state.weatherArr}>
         <Bar 
-          onResponseReceived={onResponseReceived} 
-          onRequestSend={onRequestSend}
+          onRequestSent={onRequestSent}
           onAddForecast={onAddForecast}  />
-        <Content isLoading = {state.isLoading} />
+        <Content isLoading = {state.isLoading} onDeleteCard={onDeleteCard} />
       </WeatherContext.Provider>
 
       <ParallaxEffect />

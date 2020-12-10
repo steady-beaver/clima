@@ -1,24 +1,25 @@
-export const GET_CITY_WEATHER = (weatherObj) => {
+const GET_CITY_WEATHER = (weatherObj) => {
     return {
         type: 'GET_CITY_WEATHER',
         payload: weatherObj
     }
 }
 
-export const WAIT_LOADING = () => {
+const DELETE_CITY_CARD = (city) => {
     return {
-        type: 'WAIT_LOADING'
+        type: 'DELETE_CITY_CARD',
+        payload: city
     }
 }
 
-export const RESPONSE_RECEIVED = () => {
+const WAIT_RESPONSE = () => {
     return {
-        type: 'RESPONSE_RECEIVED'
+        type: 'WAIT_RESPONSE'
     }
 }
 
 export default {
     GET_CITY_WEATHER,
-    WAIT_LOADING,
-    RESPONSE_RECEIVED
+    WAIT_RESPONSE,
+    DELETE_CITY_CARD
 }

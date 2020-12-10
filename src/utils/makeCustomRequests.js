@@ -41,12 +41,6 @@ export const getWeatherData = async (coords) => {
 
     simpleFuncs.formatData(hourTempArr)
 
-    console.log("TONKA")
-    console.log(resWeather)
-    console.log(JSON.stringify(resWeather))
-    console.log(hourTempArr)
-    console.log(JSON.stringify(hourTempArr))
-
     return [resWeather, hourTempArr]
 }
 

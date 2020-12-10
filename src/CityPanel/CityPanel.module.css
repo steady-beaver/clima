@@ -2,6 +2,7 @@
 /*============== Card content =================*/
 
 
+
 /*===============  Upper part =================*/
 
 .CityCard .UpperPart img{
@@ -16,6 +17,7 @@
 }
 
 /*===============  Lower part =================*/
+
 .CityCard .Content>div:first-child{
     margin: 0 10%;
     position: relative;
@@ -39,6 +41,22 @@
 .CityCard .Content .Desc{
      
     font-weight: 400;
+}
+
+.CityCard .Content div.DeleteBtn{
+    position: relative;
+    
+}
+
+.CityCard .Content div.DeleteBtn a{
+    position: absolute;
+    right: 0;
+}
+
+.CityCard .Content div.DeleteBtn a i{
+    position: absolute;
+    right: 0;
+
 }
 
 
@@ -86,6 +104,7 @@
         
     }
 }
+
 
 @media (max-width: 450px) {
 

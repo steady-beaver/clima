@@ -3,7 +3,7 @@ import { WeatherContext } from '../App';
 import CityPanel from '../CityPanel/CityPanel';
 import styles from './Content.module.css';
 
-const Content = ({ isLoading }) => {
+const Content = ({ isLoading, onDeleteCard }) => {
 
     let weatherData = useContext(WeatherContext)
 
@@ -45,7 +45,10 @@ const Content = ({ isLoading }) => {
                     temp={chunk.current.temp}
                     img_url={chunk.image.img_url}
                     img_alt={chunk.image.alt}
-                    tempHourArr={chunk.daily.tempHourArr} />
+                    tempHourArr={chunk.daily.tempHourArr} 
+
+                    onDeleteCard={onDeleteCard}
+                    />
             })
         )
     }

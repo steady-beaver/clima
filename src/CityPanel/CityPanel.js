@@ -13,64 +13,71 @@ const CityPanel = (props) => {
     const drawCurrentWeather = () => {
 
         var skycons = new window.Skycons({ "color": "rgb(77, 182, 172)" });
-        skycons.add( canvasRef.current, SimpleFuncs.pickProperSVG( props.sky,  props.skyID,  props.dayLight));
+        skycons.add(canvasRef.current, SimpleFuncs.pickProperSVG(props.sky, props.skyID, props.dayLight));
         skycons.play();
     }
 
-    // const modalInitialization = () => {
-    //     document.addEventListener('DOMContentLoaded', function (e) {
 
-    //         const elems = document.querySelector('.modal');
-    //         M.Modal.init(elems, {});
-    //     });
-    // }
 
-    useEffect(()=>{
+    useEffect(() => {
         document.addEventListener('DOMContentLoaded', function (e) {
 
             const elems = document.querySelector('.modal');
             M.Modal.init(elems, {});
         });
-    },[])
+    }, [])
 
     useEffect(() => {
         const elems = document.querySelectorAll('.modal');
         M.Modal.init(elems, {});
 
-         drawCurrentWeather();
+        drawCurrentWeather();
     })
+
 
     return (
         <div className={styles.CityCard}>
-                <div className="col s12 m4" >
-                    <div className="card">
-                        <div className={"card-image " + styles.UpperPart}>
-                            <img src={ props.img_url} alt={ props.img_alt} width="300" height="200" />
-                            <span className="card-title ">{ props.city}</span>
-                            <a className="btn-floating  halfway-fab waves-effect  teal lighten-2 modal-trigger" href={"#" +  props.city + "Modal"} ><i className="material-icons">add</i></a>
-                        </div>
-                        <div className={"card-content " + styles.Content}>
-                            <div>
-                                <canvas ref={ canvasRef} width="300" height="300"/>
-                            </div>
-                            <div className={styles.Temp}>{Math.round( props.temp)+"\u00B0"}</div>
-                            <div className={styles.Desc}>{SimpleFuncs.capitalizeFirst(props.desc)}</div>
-                        </div>
+            <div className="col s12 m4" >
+                <div className="card">
+                    {/* Upper part */}
+                    <div className={"card-image " + styles.UpperPart}>
+                        <img src={props.img_url} alt={props.img_alt} width="300" height="200" />
+                        <span className="card-title ">{props.city}</span>
+                        <a className="btn-floating  halfway-fab waves-effect  teal lighten-2 modal-trigger" href={"#" + props.city + "Modal"} >
+                            <i className="material-icons">add</i>
+                        </a>
                     </div>
-                </div >
 
-
-                <div id={ props.city + "Modal"} className={"modal modal-fixed-footer " + styles.Modal}>
-                    <div className="modal-content">
-                        <h4>{ props.city}</h4>
-                        <LineChartCustom city={ props.city} />
-                        <BarChartCustom city={ props.city} />
-                    </div>
-                    <div className="modal-footer">
-                        <a href="#!" className="modal-close waves-effect waves-green btn-flat">OK</a>
+                    {/* Lower part */}
+                    <div className={"card-content " + styles.Content}>
+                        <div>
+                            <canvas ref={canvasRef} width="300" height="300" />
+                        </div>
+                        <div className={styles.Temp}>{Math.round(props.temp) + "\u00B0"}</div>
+                        <div className={styles.Desc}>{SimpleFuncs.capitalizeFirst(props.desc)}</div>
+                        <div className={styles.DeleteBtn}>
+                            <a className="btn-floating " onClick={(e) => props.onDeleteCard(props.city)}>
+                                <i className="material-icons waves-effect red">delete_outline</i>
+                            </a>
+                        </div>
                     </div>
                 </div>
+            </div >
+
+
+            {/* Modal */}
+
+            <div id={props.city + "Modal"} className={"modal modal-fixed-footer " + styles.Modal}>
+                <div className="modal-content">
+                    <h4>{props.city}</h4>
+                    <LineChartCustom city={props.city} />
+                    <BarChartCustom city={props.city} />
+                </div>
+                <div className="modal-footer">
+                    <a href="#!" className="modal-close waves-effect waves-green btn-flat">OK</a>
+                </div>
             </div>
+        </div>
     )
 }
 
