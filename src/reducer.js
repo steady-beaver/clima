@@ -8,16 +8,11 @@ const reducer = (state, action) => {
         if(weatherObj === null) return {...state, isLoading: false}   //in case of req error
 
         const newState = { isLoading: false, weatherArr: [...state.weatherArr, weatherObj] }
-        console.log("Reducer newState")
-        console.log(newState)
         return newState;
   
       }
   
       case 'DELETE_CITY_CARD': {
-          console.log('DELETE_CITY_CARD reducer ' + action.payload)
-          console.log("state: ")
-          console.log(state)
 
           const oldWeatherArr = state.weatherArr
           const newWeatherArr = oldWeatherArr
