@@ -4,10 +4,12 @@ import simpleFuncs from './simpleFunctions'
 
 export const getCityCoordinates = async (city) => {
    
-    let resGeoCoordinates = await fetch(`https://api.opencagedata.com/geocode/v1/json?key=${process.env.REACT_APP_GEO}&q=${city}&no_annotations=1&limit=1`)
+    let resGeoCoordinates = await fetch(`https://api.opencagedata.com/geocode/v1/json?key=${process.env.REACT_APP_GEO}&q=${city}&no_annotations=1&limit=1&min_confidence=3`)
     resGeoCoordinates = await resGeoCoordinates.json()
     const category = resGeoCoordinates.results[0].components._category
     const type = resGeoCoordinates.results[0].components._type
+
+    console.log(resGeoCoordinates)
 
     if (category !== "place" || type !== "city") {
         throw new Error("OpenCage Geocoding API cannot find such city!")

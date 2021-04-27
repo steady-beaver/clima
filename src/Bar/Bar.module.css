@@ -12,6 +12,12 @@
     width: 60%;
 }
 
+@media (max-width: 600px) {
+    .Bar .Form{
+        width: 80%;
+    }
+}
+
 .Bar .Form input{
     text-transform: capitalize;
 }
@@ -40,3 +46,4 @@
     width: 45vw;
     height: auto;
 }
+

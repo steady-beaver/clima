@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { WeatherContext } from '../App';
 import makeCustomRequests from '../utils/makeCustomRequests';
@@ -6,12 +5,14 @@ import simpleFuncs from '../utils/simpleFunctions';
 import styles from './Bar.module.css';
 
 
-const Bar = ({ onAddForecast, onRequestSent }) => {
+// TODO validation of the input !
+
+const Bar = ({ addForecastAct, setLoadingTrueAct }) => {
 
     const weatherData = React.useContext(WeatherContext)
-    const [helperText, setHelperText] = useState(null)
+    const [error, setError] = useState("")
     const [animationCLass, setAnimationClass] = useState(null)
-    const [isSubmitButtonDisabled, setSubmitButtonDisabled] = useState(true)
+    const [city, setCity] = useState(true)
 
     const animate = () => {
         setAnimationClass(styles.SunAnimation)
@@ -21,105 +22,94 @@ const Bar = ({ onAddForecast, onRequestSent }) => {
         }, 2500)
     }
 
-    const handleCityChange = (e) => {
-        if (e.target.value) {
-            setSubmitButtonDisabled(false)
-        }
-        else setSubmitButtonDisabled(true)
+    const validateCityInp = (cityVal) => {
+
+        const pattern = new RegExp(/^([A-Z]+[ ]?)*$/, "i")
+        const isPassed = pattern.test(cityVal)
+        return isPassed
     }
 
-    const validation = (city) => {
-        
-        const WD = weatherData
-        
-        if (WD.length > 0) {
-            WD.forEach(
-                entry => {
-                    if (entry.place.city === city) {
-                        throw new Error("You already have data for that city! (Client input error)")
-                    }
-                }
+
+    const handleCityChange = (e) => {
+        setError("")
+        const cityInpVal = e.target.value.trim()
+
+        cityDuplicationCheck()
+
+        if (validateCityInp(cityInpVal)) {
+            setCity(cityInpVal)
+        }
+        else {
+            setError("Invalid city")
+        }
+
+        cityDuplicationCheck(cityInpVal)
+    }
+
+    const cityDuplicationCheck = (city) => {
+        if (weatherData.length > 0) {
+            weatherData.forEach(entry => {
+                if (entry.place.city === city) setError("City duplication.")
+            }
             )
         }
     }
 
     const handleSubmit = async (e) => {
+        e.preventDefault()
 
+        let resWeather;
+        let hourTempArr;
+        let unified_img_url;
+        let alt;
+        let coords;
+
+        setLoadingTrueAct();
+
+
+        // API requests
         try {
-            //===================   Form process    =======================
-            e.preventDefault();
-
-            let city = e.target["city"].value
-
-            city = city.trim()
-            city = city[0].toUpperCase() + city.substring(1)
-            validation(city)
-
-            setSubmitButtonDisabled(true)
-            e.target["city"].value = ""
-            setHelperText("");
-            //====================    Get wanted data   ====================
-            let resWeather;
-            let hourTempArr; 
-            let unified_img_url;
-            let alt;
-            let coords; 
-            
-            onRequestSent();
-            
-
-            try{
-                
-                
-                coords = await makeCustomRequests.getCityCoordinates(city);
-                
-                [resWeather, hourTempArr] = await makeCustomRequests.getWeatherData(coords);
-    
-                [unified_img_url, alt] = await makeCustomRequests.getCityImage(city);
-                
-                  
-            }catch(e){
-                
-                console.error( e )
-            }
-            
-
-            //====================    Sun animation   ====================
-
-            animate()
-
-            //====================  Compose Weather Object   ========================
-
-            let weatherObj = {
-                place: {
-                    city: city,
-                    lat: coords.lat,
-                    lng: coords.lng
-                },
-                image: {
-                    img_url: unified_img_url,
-                    alt: alt
-                },
-                current: {
-                    temp: resWeather.current.temp,
-                    sky: resWeather.current.weather[0].main,
-                    skyID: resWeather.current.weather[0].id,
-                    desc: resWeather.current.weather[0].description,
-                    dayLight: simpleFuncs.isDayLight(resWeather.current)
-                },
-                daily: {
-                    tempHourArr: hourTempArr
-                },
-                forecast: simpleFuncs.refineData(resWeather.daily)
-            }
-
-            onAddForecast(weatherObj);
-            
+            coords = await makeCustomRequests.getCityCoordinates(city);
+            [resWeather, hourTempArr] = await makeCustomRequests.getWeatherData(coords);
+            [unified_img_url, alt] = await makeCustomRequests.getCityImage(city);
 
         } catch (e) {
-            setHelperText(e.message) 
-            console.error(e.name + ' caught! \n' + e);
+            setError(e.message)
+            console.error("Problem with AJAX requests")
+            console.error(e)
+            addForecastAct(null);
+            return
         }
+
+
+        animate()       //sun animation
+
+        //====================  Compose Weather Object   ========================
+
+        let weatherObj = {
+            place: {
+                city: city,
+                lat: coords.lat,
+                lng: coords.lng
+            },
+            image: {
+                img_url: unified_img_url,
+                alt: alt
+            },
+            current: {
+                temp: resWeather.current.temp,
+                sky: resWeather.current.weather[0].main,
+                skyID: resWeather.current.weather[0].id,
+                desc: resWeather.current.weather[0].description,
+                dayLight: simpleFuncs.isDayLight(resWeather.current)
+            },
+            daily: {
+                tempHourArr: hourTempArr
+            },
+            forecast: simpleFuncs.refineData(resWeather.daily)
+        }
+
+        addForecastAct(weatherObj);
     }
 
     return (
@@ -128,16 +118,26 @@ const Bar = ({ onAddForecast, onRequestSent }) => {
             <div className={`${styles.Sun} ${animationCLass}`}  >
                 <img src="imgs/sun/stylized-sun-bg.png" alt="sun" />
             </div>
-            <form className={styles.Form} onSubmit={handleSubmit} data-test="bar-form">
+            <form className={styles.Form + " row"} onSubmit={handleSubmit} >
+
                 <input type="text"
-                    data-test="city-input"
+                    className="col s9"
                     spellCheck="false"
-                   
-                    name="city"
+                    placeholder="Country"
+                />
+                <input type="text"
+                    className="col s2 offset-s1"
+                    spellCheck="false"
+                    placeholder="Code"
+                />
+
+                <input type="text"
+                    className="col s12"
+                    spellCheck="false"
                     placeholder="City"
                     onChange={handleCityChange} />
-                <span className="helper-text left-align red-text" data-test="helper-span" >{helperText}</span>
-                <button className="waves-effect   btn teal lighten-2" disabled={isSubmitButtonDisabled} data-test="submit-button" type="submit">Get forecast</button>
+                <span className="helper-text left-align red-text"  >{error}</span>
+                <button className="waves-effect   btn teal lighten-2" disabled={error || !city} type="submit">Get forecast</button>
             </form>
         </div>
     )

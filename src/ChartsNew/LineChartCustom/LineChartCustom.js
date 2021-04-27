@@ -9,9 +9,8 @@ const LineChartCustom = (props) => {
     let weatherData = useContext(WeatherContext)
 
     const extractDailyData = (city) => {
-        const WD = weatherData
-        for (let i in WD) {
-            if (WD[i].place.city === city) return WD[i].daily.tempHourArr
+        for (let i in weatherData) {
+            if (weatherData[i].place.city === city) return weatherData[i].daily.tempHourArr
         }
         throw new Error("extractDataFromStore could not find relative data!")
     }

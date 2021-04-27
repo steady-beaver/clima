@@ -18,7 +18,6 @@ export class PoweredBy extends Component {
                 <div className="row ">               
                     
                     {this.state.data.map( (tech, i) => ( <TechCard 
-                            data-test="tech-card-component"
                             href = {tech.href}
                             src = {tech.src}
                             alt = {tech.alt} 

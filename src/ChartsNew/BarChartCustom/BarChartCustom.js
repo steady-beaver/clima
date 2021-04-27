@@ -22,9 +22,8 @@ const BarChartCustom = (props) => {
     let weatherData = useContext(WeatherContext)
 
     const extractForecast = (city) => {
-        const WD = weatherData
-        for (let i in WD) {
-            if (WD[i].place.city === city) return WD[i].forecast
+        for (let i in weatherData) {
+            if (weatherData[i].place.city === city) return weatherData[i].forecast
         }
 
         throw new Error("extractDataFromStore could not find relative data!")

@@ -1,9 +1,12 @@
 const reducer = (state, action) => {
     switch (action.type) {
   
-      case 'GET_CITY_WEATHER': {
-  
+      case 'ADD_FORECAST': {
+
         const weatherObj = action.payload
+        
+        if(weatherObj === null) return {...state, isLoading: false}   //in case of req error
+
         const newState = { isLoading: false, weatherArr: [...state.weatherArr, weatherObj] }
         console.log("Reducer newState")
         console.log(newState)
@@ -18,13 +21,13 @@ const reducer = (state, action) => {
 
           const oldWeatherArr = state.weatherArr
           const newWeatherArr = oldWeatherArr
-            .filter(weatherObj => weatherObj.place.city != action.payload )
+            .filter(weatherObj => weatherObj.place.city !== action.payload )
             
         return {...state, weatherArr: newWeatherArr}
       }
 
 
-      case 'WAIT_RESPONSE': {
+      case 'SET_LOADING': {
         return { ...state, isLoading: true }
       }
   

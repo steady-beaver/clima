@@ -1,6 +1,6 @@
-const GET_CITY_WEATHER = (weatherObj) => {
+const ADD_FORECAST = (weatherObj) => {
     return {
-        type: 'GET_CITY_WEATHER',
+        type: 'ADD_FORECAST',
         payload: weatherObj
     }
 }
@@ -12,14 +12,14 @@ const DELETE_CITY_CARD = (city) => {
     }
 }
 
-const WAIT_RESPONSE = () => {
+const SET_LOADING = () => {
     return {
-        type: 'WAIT_RESPONSE'
+        type: 'SET_LOADING'
     }
 }
 
 export default {
-    GET_CITY_WEATHER,
-    WAIT_RESPONSE,
+    ADD_FORECAST,
+    SET_LOADING,
     DELETE_CITY_CARD
 }

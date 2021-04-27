@@ -13,18 +13,22 @@ export const WeatherContext = React.createContext([]);
 function App() {
   const [state, dispatch] = React.useReducer(reducer, { isLoading: false, weatherArr: [] })
 
-  const onAddForecast = (weatherObj) => { return dispatch(actions.GET_CITY_WEATHER(weatherObj))  }
-  const onRequestSent = () => { return dispatch(actions.WAIT_RESPONSE())  }
-  const onDeleteCard = (city) => { return dispatch(actions.DELETE_CITY_CARD(city))  }
+  // const onAddForecast = (weatherObj) => { return dispatch(actions.GET_CITY_WEATHER(weatherObj))  }
+  // const onRequestSent = () => { return dispatch(actions.WAIT_RESPONSE())  }
+  // const onDeleteCard = (city) => { return dispatch(actions.DELETE_CITY_CARD(city))  }
 
+  const addForecastAct = (weatherObj) => { return dispatch(actions.ADD_FORECAST(weatherObj))  }
+  const setLoadingTrueAct = () => { return dispatch(actions.SET_LOADING())  }
+  const deleteCityCardAct = (city) => { return dispatch(actions.DELETE_CITY_CARD(city))  }
+  
   return (
     <div className="App container" >
 
       <WeatherContext.Provider value = {state.weatherArr}>
         <Bar 
-          onRequestSent={onRequestSent}
-          onAddForecast={onAddForecast}  />
-        <Content isLoading = {state.isLoading} onDeleteCard={onDeleteCard} />
+          setLoadingTrueAct={setLoadingTrueAct}
+          addForecastAct={addForecastAct}  />
+        <Content isLoading = {state.isLoading} deleteCityCardAct={deleteCityCardAct} />
       </WeatherContext.Provider>
 
       <ParallaxEffect />
