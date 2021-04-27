@@ -9,3 +9,4 @@
 - **Recharts** library for visualizing weather data
 - Field validation with **RegExp**
 - Skycons animated weather icons using **HTML5**  < canvas >
+- CI with **Netlify** and **GitHub**
