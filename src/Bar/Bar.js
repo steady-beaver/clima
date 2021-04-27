@@ -32,7 +32,9 @@ const Bar = ({ addForecastAct, setLoadingTrueAct }) => {
 
     const handleCityChange = (e) => {
         setError("")
-        const cityInpVal = e.target.value.trim()
+        if(e.target.value === "") return
+        let cityInpVal = e.target.value.trim()
+        cityInpVal = cityInpVal[0].toUpperCase() + cityInpVal.slice(1)  //Capitalize 
 
         cityDuplicationCheck()
 
@@ -58,7 +60,7 @@ const Bar = ({ addForecastAct, setLoadingTrueAct }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        let resWeather;
+        let weatherData;
         let hourTempArr;
         let unified_img_url;
         let alt;
@@ -70,7 +72,7 @@ const Bar = ({ addForecastAct, setLoadingTrueAct }) => {
         // API requests
         try {
             coords = await makeCustomRequests.getCityCoordinates(city);
-            [resWeather, hourTempArr] = await makeCustomRequests.getWeatherData(coords);
+            [weatherData, hourTempArr] = await makeCustomRequests.getWeatherData(coords);
             [unified_img_url, alt] = await makeCustomRequests.getCityImage(city);
 
         } catch (e) {
@@ -97,16 +99,16 @@ const Bar = ({ addForecastAct, setLoadingTrueAct }) => {
                 alt: alt
             },
             current: {
-                temp: resWeather.current.temp,
-                sky: resWeather.current.weather[0].main,
-                skyID: resWeather.current.weather[0].id,
-                desc: resWeather.current.weather[0].description,
-                dayLight: simpleFuncs.isDayLight(resWeather.current)
+                temp: weatherData.current.temp,
+                sky: weatherData.current.weather[0].main,
+                skyID: weatherData.current.weather[0].id,
+                desc: weatherData.current.weather[0].description,
+                dayLight: simpleFuncs.isDayLight(weatherData.current)
             },
             daily: {
                 tempHourArr: hourTempArr
             },
-            forecast: simpleFuncs.refineData(resWeather.daily)
+            forecast: simpleFuncs.refineData(weatherData.daily)
         }
 
         addForecastAct(weatherObj);
