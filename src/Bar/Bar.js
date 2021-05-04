@@ -61,7 +61,7 @@ const Bar = ({ addForecastAct, setLoadingTrueAct }) => {
 
     const validateStringInput = (cityVal) => {
 
-        const pattern = new RegExp(/^([A-Z]+[ ]?)*$/, "i")
+        const pattern = new RegExp(/^([A-Z]+[,]?[ ]?)*$/, "i")
         const isPassed = pattern.test(cityVal)
         return isPassed
     }
