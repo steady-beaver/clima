@@ -18,11 +18,13 @@ export const getCityCoordinates = async (city, countryCode) => {
         const category = data.results[0].components._category
         const type = data.results[0].components._type
 
-        // console.log(data)
-
-        if (category !== "place" || type !== "city") {
+        if (!(category === "place" && (type === "city" || type === "village"))) {
             throw new Error("OpenCage Geocoding API cannot find such city object!")
         }
+
+        // if (category !== "place" || type !== "city") {
+        //     throw new Error("OpenCage Geocoding API cannot find such city object!")
+        // }
 
         return {
             lat: data.results[0].geometry.lat,

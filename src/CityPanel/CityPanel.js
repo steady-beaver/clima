@@ -56,7 +56,7 @@ const CityPanel = (props) => {
                         <div className={styles.Temp}>{Math.round(props.temp) + "\u00B0"}</div>
                         <div className={styles.Desc}>{SimpleFuncs.capitalizeFirst(props.desc)}</div>
                         <div className={styles.DeleteBtn}>
-                            <a className="btn-floating " onClick={(e) => props.deleteCityCardAct(props.city)}>
+                        <a className="btn-floating " href={`#${props.city}Remove`} onClick={(e) => props.deleteCityCardAct(props.city)}>
                                 <i className="material-icons waves-effect red">delete_outline</i>
                             </a>
                         </div>

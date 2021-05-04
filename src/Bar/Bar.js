@@ -20,6 +20,7 @@ const Bar = ({ addForecastAct, setLoadingTrueAct }) => {
 
 
     const cityDuplicationCheckCbk = useCallback((city) => {
+        
         if (weatherData.length > 0) {
             weatherData.forEach(entry => {
                 if (entry.place.city === city) setError("City duplication.")
@@ -29,8 +30,6 @@ const Bar = ({ addForecastAct, setLoadingTrueAct }) => {
     }, [weatherData])
 
     useEffect(() => {
-        console.log("USE_EFFECT")
-        console.log(city, country, code)
         setError("")
 
         if (suggestions.length === 1) {
@@ -123,7 +122,7 @@ const Bar = ({ addForecastAct, setLoadingTrueAct }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setCity("")
+        
         if (!city) {
             setError("No city")
             return
@@ -188,8 +187,8 @@ const Bar = ({ addForecastAct, setLoadingTrueAct }) => {
             forecast: simpleFuncs.refineData(weatherData.daily)
         }
 
+        setCity("")
         addForecastAct(weatherObj);
-
     }
 
     return (
