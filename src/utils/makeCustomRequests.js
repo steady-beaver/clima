@@ -16,10 +16,14 @@ export const getCityCoordinates = async (city, countryCode) => {
 
         const data = await resGeoCoordinates.json()
         const category = data.results[0].components._category
-        const type = data.results[0].components._type
 
-        if (!(category === "place" && (type === "city" || type === "village"))) {
-            throw new Error("OpenCage Geocoding API cannot find such city object!")
+        // const type = data.results[0].components._type
+        // if (!(category === "place" && (type === "city" || type === "village"))) {
+        //     throw new Error("OpenCage Geocoding API cannot find such city object!")
+        // }
+        
+        if (category !== "place" ) {
+            throw new Error("OpenCage Geocoding API cannot find such place!")
         }
 
         // if (category !== "place" || type !== "city") {
